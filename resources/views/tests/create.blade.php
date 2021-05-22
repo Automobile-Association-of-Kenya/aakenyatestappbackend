@@ -40,7 +40,7 @@
                                     <label for="topic">Topic</label> 
                                     <span><select class="form-control show-tick ms select2" data-placeholder="Select">
                 
-                                        <option>Care safety</option>
+                                        <option>Car safety</option>
                                         <option>Fundamentals of driving</option>
                                         <option>Cockpit Drill</option>
                                     </select>

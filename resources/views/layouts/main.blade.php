@@ -123,7 +123,7 @@
            
            
             
-            <li><a href="{{route('logout')}}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+            <li><form action="" method="post"></form><a href="{{route('logout')}}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
         </ul>
     </div>
     
@@ -177,9 +177,9 @@
                
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Profile Settings</span></a>
                     <ul class="ml-menu">
-                        <li><a href="sign-in.html">Profile</a></li>
-                        <li><a href="sign-up.html">Logout</a></li>
-                        <li><a href="forgot-password.html">Change Password</a></li>
+                        <li><a href="javascript:void(0);">Profile</a></li>
+                        <li><a href="javascript:void(0);">Logout</a></li>
+                        <li><a href="javascript:void(0);">Change Password</a></li>
                     </ul>
                 </li>
                 
