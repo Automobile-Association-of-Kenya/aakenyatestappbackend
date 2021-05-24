@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MobileRoutesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,4 @@ Route::post('/topics',[TopicController::class,'store'])->name('topics.store');
 Route::get('/tests',[TestController::class,'index'])->name('tests.index');
 Route::get('/tests/create',[TestController::class,'create'])->name('tests.create');
 Route::post('/tests',[TestController::class,'store'])->name('tests.store');
+
