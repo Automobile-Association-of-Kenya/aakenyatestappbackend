@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('topics.index');
+        $topics=Topic::paginate(5);
+        return view('topics.index',compact('topics'));
     }
 
     /**
@@ -36,12 +41,12 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required|string',
+            'title'=>'required|string|unique:topics',
             'description'=>'required|string'
         ]);
 
         $topic=new Topic;
-        $topic->title=$request->topic;
+        $topic->title=$request->title;
         $topic->description=$request->description;
         $topic->save();
 
@@ -67,7 +72,8 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $topic=Topic::findOrFail($id);
+        return view('topics.edit',compact('topic'));
     }
 
     /**
@@ -79,7 +85,16 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required'
+        ]);
+        $topic=Topic::findOrFail($id);
+        $topic->title=$request->title;
+        $topic->description=$request->description;
+        $topic->save();
+
+        return redirect()->route('topics.index')->with('success','Test updated successfully');
     }
 
     /**
@@ -90,6 +105,9 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $topic=Topic::findOrFail($id);
+        $topic->delete();
+
+        return redirect()->route('topics.index')->with('success','Topic deleted successfully');
     }
 }

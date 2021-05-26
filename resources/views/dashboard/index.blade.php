@@ -28,7 +28,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="body xl-blue">
-                            <h4 class="mt-0 mb-0">1000</h4>
+                            <h4 class="mt-0 mb-0">{{$users}}</h4>
                             <p class="mb-0">Users</p>                        
                             <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                             data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
@@ -40,7 +40,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="body xl-purple">
-                            <h4 class="mt-0 mb-0">521</h4>
+                            <h4 class="mt-0 mb-0">{{$tests}}</h4>
                             <p class="mb-0 ">Total Tests</p>                        
                             <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                             data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
@@ -52,7 +52,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="body xl-green">
-                            <h4 class="mt-0 mb-0">73</h4>
+                            <h4 class="mt-0 mb-0">{{$questions}}</h4>
                             <p class="mb-0 ">Total Questions</p>
                             <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                             data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"

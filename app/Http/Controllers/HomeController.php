@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
+use App\Models\Test;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+       $users=User::all()->count();
+       $tests=Test::all()->count();
+       $questions=Question::all()->count();
+        return view('dashboard.index',compact('users','tests','questions'));
     }
 }

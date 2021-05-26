@@ -22,3 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Login & Register APIs
 Route::post('/login',[MobileRoutesController::class,'login']);
 Route::post('/register',[MobileRoutesController::class,'register']);
+Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
+
+//Reset password 
+Route::post('/forgot',[MobileRoutesController::class,'forgot']);
+Route::post('/reset',[MobileRoutesController::class,'reset']);
+
+//Tests
+Route::get('/tests',[MobileRoutesController::class,'tests']);//Get all tests
+Route::get('/topics/tests',[MobileRoutesController::class,'testspertopic']);//Get tests per topic
+Route::get('topic/{id}/tests',[MobileRoutesController::class,'testsinatopic']);//Get tests in a specif topic

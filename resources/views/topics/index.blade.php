@@ -47,42 +47,25 @@
                                             {{$item}}<br>
                                         @endforeach
                                     @endif
-                                    
-                                    <tr>
-                                       
-                                        <td><h5>Fundamentals of Driving</h5></td>
-                                        <td><span class="text-muted">A topic on the Fundamentals of driving</span></td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                       
-                                        <td><h5>Cockpit drill</h5></td>
-                                        <td><span class="text-muted">everything you need to check before you drive</span></td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                    @forelse ($topics as $item)
+                                        <tr>
                                         
-                                        <td><h5>Vehicle safety checks</h5></td>
-                                        <td><span class="text-muted">Vehicle safety checks while driving </span></td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h5>Car controls and instruments</h5></td>
-                                        <td><span class="text-muted">Knowing how to use the buttons and switches in the car</span></td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
-                                    </tr>       
+                                            <td><h5>{{$item->title}}</h5></td>
+                                            <td><span class="text-muted">{{Str::limit($item->description,65)}}</span></td>
+                                            <td>
+                                                <a href="{{route('topics.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
+                                                <form action="{{route('topics.destroy',$item->id)}}" method="post" style="display: inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <span><button type="submit"  class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></button></span>  
+                                                </form>     
+                                            </td>
+                                        </tr>
+                                    @empty
+                                    <td>No topics to display</td>
+                                    @endforelse
+                                    
+                            
                                 </tbody>
                             </table>
                         </div>
@@ -90,12 +73,7 @@
                     <div class="card">
                         <div class="body">                            
                             <ul class="pagination pagination-primary m-b-0">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-right"></i></a></li>
+                                {{$topics->links()}}
                             </ul>
                         </div>
                     </div>

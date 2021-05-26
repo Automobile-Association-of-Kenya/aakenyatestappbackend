@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Test;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        return view('tests.index');
+        $tests=Test::paginate(3);
+        return view('tests.index',compact('tests'));
     }
 
     /**
@@ -23,7 +30,9 @@ class TestController extends Controller
      */
     public function create()
     {
-        return view('tests.create');
+       
+        $topics=Topic::all();
+        return view('tests.create',compact('topics'));
     }
 
     /**
@@ -34,7 +43,19 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+           'title'=>'required|string',
+           'code'=>'required|unique:tests'
+       ]);
+       
+       $test=new Test;
+       $test->code=$request->code;
+       $test->title=$request->title;
+       $test->topic_id=$request->topic_id;
+       $test->save();
+       
+       return redirect()->route('tests.index')->with('success','Test created successfully');
+
     }
 
     /**
@@ -56,7 +77,11 @@ class TestController extends Controller
      */
     public function edit($id)
     {
-        //
+        $test=Test::findOrFail($id);
+        $topics=Topic::all();
+        $questions=$test->questions()->paginate(3);
+
+        return view('tests.edit',compact('test','topics','questions'));
     }
 
     /**
@@ -68,7 +93,18 @@ class TestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'=>'required|string',
+            'code'=>'required'
+        ]);
+        
+        $test=Test::findOrFail($id);
+        $test->code=$request->code;
+        $test->title=$request->title;
+        $test->topic_id=$request->topic_id;
+        $test->save();
+        
+        return redirect()->route('tests.index')->with('success','Test updated successfully');
     }
 
     /**
@@ -79,6 +115,9 @@ class TestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $test=Test::findOrFail($id);
+        $test->delete();
+
+        return redirect()->route('tests.index')->with('success','Test deleted successfully');
     }
 }

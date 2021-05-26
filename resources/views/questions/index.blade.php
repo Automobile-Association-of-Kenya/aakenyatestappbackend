@@ -32,7 +32,6 @@
                                 <thead>
                                     <tr>
                                         
-                                        <th data-breakpoints="sm xs">Code</th>
                                         <th data-breakpoints="sm xs">Title</th>
                                         <th data-breakpoints="xs">No of Questions</th>
                                         <th data-breakpoints="sm xs md">Action</th>
@@ -51,9 +50,8 @@
                                     @endif
                                     @forelse ($tests as $item)
                                     <tr>
-                                        <td><h5>{{$item->code}}</h5></td>
-                                        <td><h5>{{$item->title}}</h5></td>
-                                        <td><span class="text-muted">{{$item->questions->count()}}</span></td>
+                                        <td><h5>Fundamentals of Driving</h5></td>
+                                        <td><span class="text-muted">20</span></td>
                                         <td>
                                             <a href="{{route('tests.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                             <form action="{{route('tests.destroy',$item->id)}}" method="post" style="display: inline">
@@ -72,7 +70,12 @@
                     <div class="card">
                         <div class="body">                            
                             <ul class="pagination pagination-primary m-b-0">
-                                {{$tests->links()}}
+                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-left"></i></a></li>
+                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-right"></i></a></li>
                             </ul>
                         </div>
                     </div>

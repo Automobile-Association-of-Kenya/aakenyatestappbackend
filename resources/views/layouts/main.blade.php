@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/plugins/charts-c3/plugin.css')}}"/>
-    
+    <link rel="stylesheet" href="{{asset('assets/plugins/dropify/css/dropify.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
@@ -20,12 +20,12 @@
     <body class="theme-blush">
     
     <!-- Page Loader -->
-    <div class="page-loader-wrapper">
+     <div class="page-loader-wrapper">
         <div class="loader">
             <div class="m-t-30"><img class="zmdi-hc-spin" src="{{asset('assets/images/logo.jpg')}}" width="48" height="48" alt="Aero" style="border-radius:50%;"></div>
             <p>Please wait...</p>
         </div>
-    </div>
+    </div> 
     
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
@@ -121,9 +121,7 @@
                 </ul>
             </li>
            
-           
-            
-            <li><form action="" method="post"></form><a href="{{route('logout')}}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+            <li><a><form action="{{route('logout')}}" method="post">@csrf<button type="submit"  class="mega-menu bg-transparent border-0" title="Sign Out"><i class="zmdi zmdi-power"></i></button></form></a></li>
         </ul>
     </div>
     
@@ -139,7 +137,9 @@
                     <div class="user-info">
                         <a class="image" href="profile.html"><img src="{{asset('assets/images/profile_av.jpg')}}" alt=""></a>
                         <div class="detail">
-                            <h4>{{Auth::User()->name}}</h4>
+                           @auth
+                           <h4>{{Auth::User()->name}}</h4>
+                           @endauth
                             <small>Super Admin</small>                        
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Profile Settings</span></a>
                     <ul class="ml-menu">
                         <li><a href="javascript:void(0);">Profile</a></li>
-                        <li><a href="javascript:void(0);">Logout</a></li>
+                        <li><form action="{{route('logout')}}" method="post">@csrf<button type="submit"  class=" bg-transparent border-0" title="Sign Out"><a>Logout</a></button></form></li>
                         <li><a href="javascript:void(0);">Change Password</a></li>
                     </ul>
                 </li>
@@ -342,17 +342,19 @@
 
 
 <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js --> 
-<script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js --> 
+ <script src="{{asset('assets/bundles/vendorscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js --> 
 
 <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js --> 
 
- <script src="{{asset('assets/bundles/jvectormap.bundle.js')}}"></script> <!-- JVectorMap Plugin Js -->
+<script src="{{asset('assets/bundles/jvectormap.bundle.js')}}"></script> <!-- JVectorMap Plugin Js -->
 
 <script src="{{asset('assets/bundles/sparkline.bundle.js')}}"></script> <!-- Sparkline Plugin Js -->
-<script src="{{asset('assets/bundles/c3.bundle.js')}}"></script>
+<script src="{{asset('assets/bundles/c3.bundle.js')}}"></script> 
 
+<script src="{{asset('assets/plugins/dropify/js/dropify.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/forms/dropify.js')}}"></script>
 
-<script src="{{asset('assets/js/pages/blog/blog.js')}}"></script>
+ <script src="{{asset('assets/js/pages/blog/blog.js')}}"></script> 
 </body>
 
 
