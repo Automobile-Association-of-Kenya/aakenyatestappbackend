@@ -27,6 +27,10 @@ Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
 //Reset password 
 Route::post('/forgot',[MobileRoutesController::class,'forgot']);
 Route::post('/reset',[MobileRoutesController::class,'reset']);
+Route::post('/verifycode',[MobileRoutesController::class,'verifycode']);
+
+//Topics 
+Route::get('/topics',[MobileRoutesController::class,'topics']);//Get all tests
 
 //Tests
 Route::get('/tests',[MobileRoutesController::class,'tests']);//Get all tests
