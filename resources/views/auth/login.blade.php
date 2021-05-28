@@ -36,7 +36,7 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" placeholder="Password" name="password">
                             <div class="input-group-append">                                
-                                <span class="input-group-text"><a href="{{route('password.request')}} " class="forgot" title="Forgot Password"><i class="zmdi zmdi-lock"></i></a></span>
+                                <span class="input-group-text"><a href="#" class="forgot" title="Forgot Password"><i class="zmdi zmdi-lock"></i></a></span>
                             </div>                            
                         </div>
                         <div class="checkbox">
@@ -45,8 +45,8 @@
                         </div>
                         <button class="btn btn-primary btn-block waves-effect waves-light">SIGN IN</button>                        
                         <div class="signin_with mt-3">
-                            <p class="mb-0">or <a href="{{route('register')}}">Sign Up</a></p>
-                           
+                            <p class="mb-0">or <a class="mr-5" href="{{route('register')}}">Sign Up</a> <a class="ml-3" href="{{route('password.request')}}">Forgot Password?</a></p>
+                            
                         </div>
                     </div>
                 </form>

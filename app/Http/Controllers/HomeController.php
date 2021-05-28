@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
        $users=User::all()->count();
-       $tests=Test::all()->count();
+       $tests=Test::all();
        $questions=Question::all()->count();
         return view('dashboard.index',compact('users','tests','questions'));
     }

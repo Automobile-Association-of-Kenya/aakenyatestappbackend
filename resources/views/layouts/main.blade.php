@@ -144,8 +144,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="active open"><a href="{{route('home')}}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Tests</span></a>
+                <li class="{{(request()->is('home')) ? 'active open' : ''}}"><a href="{{route('home')}}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+                <li class="{{(request()->is('topics*')) ? 'active open' : ((request()->is('tests*')) ? 'active open' : '')}}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Tests</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('topics.index')}}">Topics</a></li>
                         <li><a href="{{route('tests.create')}}">Add Test</a></li>

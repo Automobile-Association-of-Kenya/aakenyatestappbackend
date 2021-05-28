@@ -63,7 +63,7 @@
             </div>
             <div class="col-lg-8 col-sm-12">
                 <div class="card">
-                    <img src="assets/images/splash.jpg" width="75%" style="margin-left:15%;" alt="Sign Up" />
+                    <img src="assets/images/splash.jpg" width="78%" style="margin-left:15%;" alt="Sign Up" />
                 </div>
             </div>
         </div>
