@@ -219,6 +219,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group form-float">
+                                    <input type="number" value="{{$question->marks}}" class="form-control" placeholder="Marks" name="marks" >
+                                </div>
                                 <button class="btn btn-primary" type="submit" >Update</button>
                     
                             </form>

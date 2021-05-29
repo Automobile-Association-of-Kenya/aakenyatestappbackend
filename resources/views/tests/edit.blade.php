@@ -79,6 +79,7 @@
                                         
                                         <th data-breakpoints="sm xs">#</th>
                                         <th data-breakpoints="xs">Question</th>
+                                        <th data-breakpoints="xs">Marks</th>
                                         <th data-breakpoints="sm xs md">Action</th>
                                     </tr>
                                 </thead>
@@ -97,6 +98,7 @@
                                         <tr>
                                             <td><h5>{{$item->id}}</h5></td>
                                             <td><span class="text-muted">{{$item->question}}</span></td>
+                                            <td><span class="text-muted">{{$item->marks}}</span></td>
                                             <td>
                                                 <a href="{{route('questions.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                                 <form action="{{route('questions.destroy',$item->id)}}" method="post" style="display: inline">

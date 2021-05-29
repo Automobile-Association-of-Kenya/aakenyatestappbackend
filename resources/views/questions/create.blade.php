@@ -2,7 +2,6 @@
 @section('title')
     <title>Create Question</title>
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @section('content')
 <section class="content">
     <div class="body_scroll">
@@ -48,7 +47,7 @@
                                 <label for="">Question</label>
                                 <div class="form-group form-float">
                                     <input type="hidden" name="test_id" value="{{$test->id}}">
-                                    <input type="text" class="form-control" placeholder="Title" name="question" >
+                                    <input type="text" class="form-control" placeholder="Question" name="question" >
                                 </div>
                                 <div class="form-group form-float">
                                     <label for="topic">Topic</label> 
@@ -209,6 +208,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <label for="">Marks</label>
+                                <div class="form-group form-float">
+                                    <input type="number" class="form-control" placeholder="Marks" name="marks" >
+                                </div>
                                 <div class="form-group form-float">
                                     <div class="card">
                                         <div class="header">
@@ -230,6 +233,7 @@
     </div>
 </section>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function change_type(){
         var type=$("#select").val();

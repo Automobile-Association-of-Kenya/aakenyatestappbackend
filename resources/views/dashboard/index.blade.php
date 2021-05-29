@@ -170,7 +170,7 @@
                     </table>
                     <div class="card">
                         <div class="body">                            
-                         <button class="btn btn-success btn-lg">View More</button>
+                         <a href="{{route('tests.index')}}" class="btn btn-success btn-sm">View More</a>
                         </div>
                     </div>
                 </div>

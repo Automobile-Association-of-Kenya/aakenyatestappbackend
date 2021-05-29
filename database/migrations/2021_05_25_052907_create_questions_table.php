@@ -27,6 +27,7 @@ class CreateQuestionsTable extends Migration
             $table->boolean('second_answer')->default(false);
             $table->boolean('third_answer')->default(false);
             $table->boolean('fourth_answer')->default(false);
+            $table->integer('marks');
             $table->string('photo')->nullable();
             $table->timestamps();
 

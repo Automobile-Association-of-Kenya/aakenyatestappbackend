@@ -45,7 +45,7 @@
                         </div>
                         <button class="btn btn-primary btn-block waves-effect waves-light">SIGN IN</button>                        
                         <div class="signin_with mt-3">
-                            <p class="mb-0">or <a class="mr-5" href="{{route('register')}}">Sign Up</a> <a class="ml-3" href="{{route('password.request')}}">Forgot Password?</a></p>
+                            <p class="mb-0"> <a class="ml-3" href="{{route('password.request')}}">Forgot Password?</a></p>
                             
                         </div>
                     </div>

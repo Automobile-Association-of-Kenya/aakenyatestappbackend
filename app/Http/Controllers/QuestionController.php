@@ -44,14 +44,16 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'question'=>'required'
-        ]);
-        
+         $request->validate([
+             'question'=>'string|required',
+             'marks'=>'number|required'
+         ]);
+       // dd($request->multi);
         $question= new Question;
         $question->question=$request->question;
         $question->test_id=$request->test_id;
         $question->topic_id=$request->topic_id;
+        $question->marks=$request->marks;
         
         $question->type='essay';
 
@@ -166,7 +168,6 @@ class QuestionController extends Controller
             $img->resize(300,null);
             $imageName=time()."_.".$image->getClientOriginalExtension();
             $img->save(public_path("Images/".$imageName));
-            //$img->save(public_path("Images/".$thumbname));
            
             $question->photo=$imageName;
         }
@@ -209,13 +210,15 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'question'=>'required'
+            'question'=>'required',
+            'marks'=>'numeric|required'
         ]);
         
         $question=Question::findOrFail($id);
         $question->question=$request->question;
         $question->topic_id=$request->topic_id;
-        
+        $question->marks=$request->marks;
+
         $question->type='essay';
 
         $question->first_choice=$question->first_choice;
@@ -350,7 +353,6 @@ class QuestionController extends Controller
             $img->resize(300,null);
             $imageName=time()."_.".$image->getClientOriginalExtension();
             $img->save(public_path("Images/".$imageName));
-            //$img->save(public_path("Images/".$thumbname));
            
             $question->photo=$imageName;
         }
