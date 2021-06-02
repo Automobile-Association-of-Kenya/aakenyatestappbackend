@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EssayController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MobileRoutesController;
@@ -26,8 +29,12 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+Route::get('/fallback',function()
+{
+    return view('auth.fallback');
+})->name('fallback');
+    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('adminonly');
+   
 Route::get('/topics',[TopicController::class,'index'])->name('topics.index');
 Route::get('/topics/create',[TopicController::class,'create'])->name('topics.create');
 Route::post('/topics',[TopicController::class,'store'])->name('topics.store');
@@ -47,3 +54,23 @@ Route::post('/questions',[QuestionController::class,'store'])->name('questions.s
 Route::get('/questions/{id}/edit',[QuestionController::class,'edit'])->name('questions.edit');
 Route::patch('questions/{id}',[QuestionController::class,'update'])->name('questions.update');
 Route::delete('/questions/{id}',[QuestionController::class,'destroy'])->name('questions.destroy');
+
+Route::get('/essays',[EssayController::class,'index'])->name('essays.index');
+Route::get('/essays/{id}/create',[EssayController::class,'create'])->name('essays.create');
+Route::post('/essays',[EssayController::class,'store'])->name('essays.store');
+Route::get('/essays/{id}/edit',[EssayController::class,'edit'])->name('essays.edit');
+Route::patch('essays/{id}',[EssayController::class,'update'])->name('essays.update');
+
+Route::get('/users',[UserController::class,'index'])->name('users.index');
+Route::get('/users/create',[UserController::class,'create'])->name('users.create');
+Route::post('/users',[UserController::class,'store'])->name('users.store');
+Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit');
+Route::patch('users/{id}',[UserController::class,'update'])->name('users.update');
+Route::delete('users/{id}',[UserController::class,'destroy'])->name('users.destroy');
+
+Route::post('/videos/save',[VideoController::class,'store'])->name('videos.save');
+Route::get('/videos/index',[VideoController::class,'index'])->name('videos');
+Route::get('/videos/create',[VideoController::class,'create'])->name('videos.create');
+Route::get('/videos/{id}/edit',[VideoController::class,'edit'])->name('videos.edit');
+Route::patch('videos/{id}',[VideoController::class,'update'])->name('videos.update');
+Route::delete('videos/{id}',[VideoController::class,'destroy'])->name('videos.destroy');

@@ -41,4 +41,4 @@ Route::get('topic/{id}/tests',[MobileRoutesController::class,'testsinatopic']);/
 Route::post('/question/{id}/grade',[MobileRoutesController::class,'grade']);
 
 //Results in a test
-Route::get('/results/{id}',[MobileRoutesController::class,'results']);
+Route::get('/results',[MobileRoutesController::class,'results']);

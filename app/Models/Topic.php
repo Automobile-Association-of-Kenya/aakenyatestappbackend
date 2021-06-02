@@ -19,4 +19,9 @@ class Topic extends Model
         
         return $this->hasMany(Test::class);
     }
+    public function videos()
+    {
+        
+        return $this->hasMany(Video::class);
+    }
 }

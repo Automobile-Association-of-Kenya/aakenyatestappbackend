@@ -15,16 +15,41 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
+    <style>
+        .loader {
+            align-content: center;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #F9DD22;
+            border-right: 16px solid #055F43;
+            border-bottom: 16px solid  #F9DD22;
+            border-left: 16px solid #055F43;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 20s linear infinite;
+            animation: spin 2s linear infinite;
+            margin-left: 45%;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     </head>
-    
     <body class="theme-blush">
     
     <!-- Page Loader -->
      <div class="page-loader-wrapper">
         <div class="loader">
-            <div class="m-t-30"><img class="zmdi-hc-spin" src="{{asset('assets/images/logo.jpg')}}" width="48" height="48" alt="Aero" style="border-radius:50%;"></div>
-            <p>Please wait...</p>
+           
         </div>
+        Please wait...
     </div> 
     
     <!-- Overlay For Sidebars -->
@@ -129,18 +154,22 @@
     <aside id="leftsidebar" class="sidebar">
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-            <a href="index.html"><img src="{{asset('assets/images/logo.jpg')}}" width="25" alt=""><span class="m-l-10">AA Kenya</span></a>
+            <a href="/home"><img src="{{asset('assets/images/logo.jpg')}}" width="25" alt=""><span class="m-l-10">AA Kenya</span></a>
         </div>
         <div class="menu">
             <ul class="list">
                 <li>
                     <div class="user-info">
-                        <a class="image" href="profile.html"><img src="{{asset('assets/images/profile_av.jpg')}}" alt=""></a>
+                        @if (Auth::user()->photo==null)
+                            <a class="image" href="/"><i class="zmdi zmdi-account-circle zmdi-hc-5x mr-5 "></i></a>
+                        @else
+                            <a class="image" href="/"><img src="{{asset('assets/images/profile_av.jpg')}}" alt=""></a>
+                        @endif
                         <div class="detail">
                            @auth
                            <h4>{{Auth::User()->name}}</h4>
                            @endauth
-                            <small>Super Admin</small>                        
+                            <small>{{Auth::user()->role->name}}</small>                        
                         </div>
                     </div>
                 </li>
@@ -150,13 +179,13 @@
                         <li><a href="{{route('topics.index')}}">Topics</a></li>
                         <li><a href="{{route('tests.create')}}">Add Test</a></li>
                         <li><a href="{{route('tests.index')}}">View Tests</a></li>
-                        <li><a href="javascript:void(0);">Mark Test</a></li>
+                        <li><a href="{{route('essays.index')}}">Mark Test</a></li>
                                  
                     </ul>
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Reference</span></a>
                     <ul class="ml-menu">
-                        <li><a href="javascript:void(0);">Videos</a></li>
+                        <li><a href="{{route('videos')}}">Videos</a></li>
                         <li><a href="javascript:void(0);">Add Video</a></li>
                         <li><a href="javascript:void(0);">PDFs</a></li>
                         <li><a href="javascript:void(0);">Add PDF</a></li>
@@ -171,15 +200,15 @@
                         <li><a href="javascript:void(0);">PDFs Read </a></li>
                     </ul>
                 </li>
-           
-                      
-                       
-               
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Profile Settings</span></a>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Account Settings</span></a>
                     <ul class="ml-menu">
+                        @can('superadmin')
+                            <li><a href="{{route('users.index')}}">Admin Users</a></li>
+                        @endcan
                         <li><a href="javascript:void(0);">Profile</a></li>
-                        <li><form action="{{route('logout')}}" method="post">@csrf<button type="submit"  class=" bg-transparent border-0" title="Sign Out"><a>Logout</a></button></form></li>
+                        <li class="mr-0" style="margin-left: -2%"><button type="submit" form="logout" class="bg-transparent border-0 m-0" title="Sign Out"><a>Logout</a></button></li>
                         <li><a href="javascript:void(0);">Change Password</a></li>
+                        <form id="logout" action="{{route('logout')}}" method="post">@csrf</form>
                     </ul>
                 </li>
                 
