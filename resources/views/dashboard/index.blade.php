@@ -158,7 +158,7 @@
                         <tbody>
                             @forelse ($tests-> take(5) as $item)
                             <tr>
-                                <td><h5>{{$item->topic_id==0 ? 'General' : $item->topic->title}}</h5></td>
+                                <td><h5>{{$item->topic->title}}</h5></td>
                                 <td><span class="text-muted">{{$item->title}}</span></td>
                                 <td>{{$item->questions->count()}}</td>
                             </tr>

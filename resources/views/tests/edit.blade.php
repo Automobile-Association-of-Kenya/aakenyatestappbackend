@@ -51,7 +51,6 @@
                                 <div class="form-group form-float">
                                     <label for="topic">Topic</label> 
                                     <span><select class="form-control show-tick ms select2" data-placeholder="Select" name="topic_id">
-                                        <option {{$test->topic_id==0?'selected':''}} value="0">General</option>
                                         @foreach ($topics as $item)
                                             <option {{$item->id==$test->topic_id?'selected':''}} value="{{$item->id}}">{{$item->title}}</option>
                                         @endforeach
