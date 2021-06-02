@@ -46,7 +46,7 @@ class QuestionController extends Controller
     {
          $request->validate([
              'question'=>'string|required',
-             'marks'=>'number|required'
+             'marks'=>'integer|required'
          ]);
        // dd($request->multi);
         $question= new Question;

@@ -46,7 +46,7 @@ class MobileRoutesController extends Controller
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone'=>['required']
+            'phone'=>['']
         ]);
         $user = User::create([
             'name' => $data['name'],
@@ -150,7 +150,7 @@ class MobileRoutesController extends Controller
         $topic=Topic::findOrFail($id);
         return $this->jsonResponse(false, 'All tests in a topic','topic', $topic);
     }
-    public function grade($id,Request $request)
+    public function scores(Request $request)
     {
         $request->validate([
             'user_id'=>'required',
@@ -175,5 +175,18 @@ class MobileRoutesController extends Controller
         $results=$user->results;
             
         return $this->jsonResponse(false, 'Test results','Results', $results);
+    }
+    public function googlelogin(Request $request)
+    {
+        $request->validate([
+            'email'=>'required|email'
+            'name'=>'s'
+        ])
+        $user=User::where('email',$request->email)->get();
+        if($user==null)
+        {
+            $user=new User;
+            $user->name=
+        }
     }
 }

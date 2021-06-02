@@ -38,7 +38,7 @@ Route::get('/topics/tests',[MobileRoutesController::class,'testspertopic']);//Ge
 Route::get('topic/{id}/tests',[MobileRoutesController::class,'testsinatopic']);//Get tests in a specif topic
 
 //Grade 
-Route::post('/question/{id}/grade',[MobileRoutesController::class,'grade']);
+Route::post('/scores',[MobileRoutesController::class,'scores']);
 
 //Results in a test
 Route::get('/results',[MobileRoutesController::class,'results']);
