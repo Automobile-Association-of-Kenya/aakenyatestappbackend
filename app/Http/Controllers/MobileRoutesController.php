@@ -183,9 +183,9 @@ class MobileRoutesController extends Controller
             'email'=>'required|email',
             'name'=>'string|required'
         ]);
-        $credentials=User::where('email',$request->email)->first();
+        $user=User::where('email',$request->email)->first();
         
-        if($credentials==null)
+        if($user==null)
         {
             $user=new User;
             $user->name=$request->name;
@@ -194,11 +194,10 @@ class MobileRoutesController extends Controller
             $user->role_id=2;
             $user->password='google';
             $user->save();
-           
-            dd($user);
-            return $this->jsonResponse(false, 'Google auth successful','User', $user);
+         
+            // return $this->jsonResponse(false, 'Google auth successful','User', $user);
         }
 
-        return $this->jsonResponse(false, 'Authentication successful','User', $credentials);
+        return $this->jsonResponse(false, 'Authentication successful','User', $user);
     }
 }
