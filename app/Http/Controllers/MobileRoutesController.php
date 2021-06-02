@@ -42,6 +42,7 @@ class MobileRoutesController extends Controller
 
     public function register()
     {
+        
         $data = request()->validate([
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -179,14 +180,25 @@ class MobileRoutesController extends Controller
     public function googlelogin(Request $request)
     {
         $request->validate([
-            'email'=>'required|email'
-            'name'=>'s'
-        ])
-        $user=User::where('email',$request->email)->get();
-        if($user==null)
+            'email'=>'required|email',
+            'name'=>'string|required'
+        ]);
+        $credentials=User::where('email',$request->email)->first();
+        
+        if($credentials==null)
         {
             $user=new User;
-            $user->name=
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->provider='Google';
+            $user->role_id=2;
+            $user->password='google';
+            $user->save();
+           
+            dd($user);
+            return $this->jsonResponse(false, 'Google auth successful','User', $user);
         }
+
+        return $this->jsonResponse(false, 'Authentication successful','User', $credentials);
     }
 }

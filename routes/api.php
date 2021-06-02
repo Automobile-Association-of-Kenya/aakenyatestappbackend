@@ -24,6 +24,9 @@ Route::post('/login',[MobileRoutesController::class,'login']);
 Route::post('/register',[MobileRoutesController::class,'register']);
 Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
 
+//Google sign up
+Route::post('/google',[MobileRoutesController::class,'googlelogin']);
+
 //Reset password 
 Route::post('/forgot',[MobileRoutesController::class,'forgot']);
 Route::post('/reset',[MobileRoutesController::class,'reset']);
