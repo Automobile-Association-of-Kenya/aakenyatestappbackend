@@ -53,7 +53,7 @@ class VideoController extends Controller
         $video->video=$video_name;
         $video->save();
     
-         return redirect()->route('videos')->with('success','Video added successfully');
+         return redirect()->route('videos.index')->with('success','Video added successfully');
         
     }
 
@@ -77,7 +77,8 @@ class VideoController extends Controller
     public function edit($id)
     {
         $video= Video::findOrFail($id);
-        return view('videos.edit',compact('video'));
+        $topics=Topic::all();
+        return view('videos.edit',compact('video','topics'));
     }
 
     /**
@@ -89,7 +90,29 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'Hello';
+        $request->validate([
+            'title'=>'required|string',
+        ]);
+      
+        $video= Video::findOrFail($id);
+        $video_name=$video->video;
+        if($request->hasFile('video'))
+        {
+            $request->validate([
+                'video'=>'required|mimes:mp4,mkv,mov,ogg,qt'
+            ]);
+          
+            $video_file=$request->video;
+            $video_name=time().'_.'.$video_file->getClientOriginalName();
+            $video_file->move(public_path("uploads"), $video_name);
+        }
+        
+        $video->title=$request->title;
+        $video->topic_id=$request->topic_id;
+        $video->video=$video_name;
+        $video->save();
+    
+         return redirect()->route('videos.index')->with('success','Video updated successfully');
     }
 
     /**
@@ -100,6 +123,9 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $video=Video::findOrFail($id);
+        $video->delete();
+
+        return redirect()->route('videos.index')->with('success','Video deleted successfully');
     }
 }

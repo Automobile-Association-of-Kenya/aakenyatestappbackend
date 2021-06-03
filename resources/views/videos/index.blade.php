@@ -34,12 +34,15 @@
                                     <div class="col-lg-3 col-md-4 col-sm-12">
                                         <div class="card">
                                             <div class="file">
-                                                <a href="{{route('videos.edit',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </a>
-                                                    <div class="hover">
-                                                       
-                                                        <button type="button" class="btn btn-icon btn-icon-mini btn-round btn-danger">
+                                                    <div class="align-right">
+                                                        <a href="{{route('videos.edit',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </a>
+                                                        <form id="form" action="{{route('videos.destroy',$item->id)}}" method="post" style="display: inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                        <button form="form" type="submit" class="btn btn-icon btn-icon-mini btn-round btn-danger">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </button>
 

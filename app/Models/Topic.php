@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
-    protected $with = ['tests','questions'];
+    protected $with = ['tests','questions','videos','pdfs'];
     public function questions()
     {
         
@@ -23,5 +23,10 @@ class Topic extends Model
     {
         
         return $this->hasMany(Video::class);
+    }
+    public function pdfs()
+    {
+        
+        return $this->hasMany(PDF::class);
     }
 }

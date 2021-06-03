@@ -185,10 +185,10 @@
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Reference</span></a>
                     <ul class="ml-menu">
-                        <li><a href="{{route('videos')}}">Videos</a></li>
-                        <li><a href="javascript:void(0);">Add Video</a></li>
-                        <li><a href="javascript:void(0);">PDFs</a></li>
-                        <li><a href="javascript:void(0);">Add PDF</a></li>
+                        <li><a href="{{route('videos.index')}}">Videos</a></li>
+                        <li><a href="{{route('videos.create')}}">Add Video</a></li>
+                        <li><a href="{{route('pdfs.index')}}">PDFs</a></li>
+                        <li><a href="{{route('pdfs.create')}}">Add PDF</a></li>
                     </ul>
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>

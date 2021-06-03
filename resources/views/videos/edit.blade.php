@@ -11,7 +11,7 @@
                     <h2>Edit Video</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="zmdi zmdi-home"></i> AAK</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('videos')}}">Videos</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('videos.index')}}">Videos</a></li>
                         <li class="breadcrumb-item active">Edit Video</li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
@@ -37,9 +37,9 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <form action="{{route('videos.save')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('videos.update',$video->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                             
+                                @method('patch')
                                 <label for="">Title </label>
                         
                                 <div class="form-group form-float">

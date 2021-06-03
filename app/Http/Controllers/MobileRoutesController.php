@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Pdf;
 use App\Models\Test;
 use App\Models\User;
 use App\Models\Topic;
+use App\Models\Video;
+use App\Models\Result;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Mail\SendVerificationCode;
-use App\Models\Question;
-use App\Models\Result;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class MobileRoutesController extends Controller
@@ -90,6 +93,7 @@ class MobileRoutesController extends Controller
             'email'=>'email|required',
             'code'=>'numeric',
         ]);
+
         $credentials=DB::table('mobile_resets')->where('email',$request->email)->where('code',$request->code)->first();
        
         if($credentials==null)
@@ -102,11 +106,14 @@ class MobileRoutesController extends Controller
 
     public function reset(Request $request)
     {
-        $credentials = $request->validate([
+        $credentials = Validator::make($request->all(),[
             'email'=>'required|email',
             'password'=>'required|min:8|confirmed',
         ]);
-        
+        if($credentials->fails())
+        {
+            return $this->jsonResponse(true, 'Invalid credentials', null, $credentials->messages());
+        }
         $user=User::where('email',$request->email)->first();
         $user->password=Hash::make($request->password);
         $user->save();
@@ -172,7 +179,7 @@ class MobileRoutesController extends Controller
         $request->validate([
             'user_id'=>'required',
         ]);
-        $user=User::findOrFail($request->user_id)->first();
+        $user=User::findOrFail($request->user_id);
         $results=$user->results;
             
         return $this->jsonResponse(false, 'Test results','Results', $results);
@@ -194,10 +201,18 @@ class MobileRoutesController extends Controller
             $user->role_id=2;
             $user->password='google';
             $user->save();
-         
-            // return $this->jsonResponse(false, 'Google auth successful','User', $user);
         }
 
-        return $this->jsonResponse(false, 'Authentication successful','User', $user);
+    return $this->jsonResponse(false, 'Authentication successful','user', $user);
+    }
+    public function videos()
+    {
+        $videos= Video::all();
+        return $this->jsonResponse(false, 'All Videos', 'Videos', $videos);
+    }
+    public function pdfs()
+    {
+        $pdfs= Pdf::all();
+        return $this->jsonResponse(false, 'All PDFs', 'PDFs', $pdfs);
     }
 }

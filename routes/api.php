@@ -45,3 +45,7 @@ Route::post('/scores',[MobileRoutesController::class,'scores']);
 
 //Results in a test
 Route::get('/results',[MobileRoutesController::class,'results']);
+
+//References
+Route::get('/videos',[MobileRoutesController::class,'videos']);//Videos
+Route::get('/pdfs',[MobileRoutesController::class,'pdfs']);
