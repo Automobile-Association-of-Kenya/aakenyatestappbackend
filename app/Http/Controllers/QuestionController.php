@@ -370,7 +370,7 @@ class QuestionController extends Controller
     {
         $question=Question::findOrFail($id);
         $question->delete();
-
-        return redirect()->route('tests.edit',$question->test_id)->with('success','Question deleted successfully');
+        
+        return response()->json(['status'=>'Question deleted successfully']);
     }
 }

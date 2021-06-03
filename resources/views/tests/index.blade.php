@@ -51,16 +51,13 @@
                                     @endif
                                     @forelse ($tests as $item)
                                     <tr>
+                                        <input type="hidden" class="delete_value_id" value="{{$item->id}}">
                                         <td><h5>{{$item->code}}</h5></td>
                                         <td><h5>{{$item->title}}</h5></td>
                                         <td><span class="text-muted">{{$item->questions->count()}}</span></td>
                                         <td>
                                             <a href="{{route('tests.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <form action="{{route('tests.destroy',$item->id)}}" method="post" style="display: inline">
-                                                @method('delete')
-                                                @csrf
-                                                <span><button type="submit"  class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></button></span>
-                                            </form>
+                                            <button type="button"  class="btn btn-default waves-effect waves-float btn-sm waves-red topicdelete"><i class="zmdi zmdi-delete"></i></button>  
                                     </tr>
                                     @empty
                                         <td>No tests to show</td>
@@ -81,4 +78,53 @@
         </div>
     </div>
 </section>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(".topicdelete").click(function (e) { 
+                e.preventDefault();
+                var delete_value= $(this).closest("tr").find('.delete_value_id').val();
+                //alert(delete_value);
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this test information!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    var data={
+                        "_token": $('input[name="csrf-token"]').val(),
+                        "id":delete_value,
+                    }
+                    $.ajax({
+                        type: "DELETE",
+                        url: '/tests/'+delete_value,
+                        data: data,
+                        success: function (response) {
+                            swal(response.status, {
+                                icon: "success",
+                            })
+                            .then((result) => {
+                                location.reload();
+                            });
+                        }
+                    });
+
+                } else {
+                        swal("Test data is safe!");
+                }
+                });
+            });
+        });
+
+    </script>
 @endsection

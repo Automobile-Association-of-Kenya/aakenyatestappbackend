@@ -108,6 +108,7 @@ class TopicController extends Controller
         $topic=Topic::findOrFail($id);
         $topic->delete();
 
-        return redirect()->route('topics.index')->with('success','Topic deleted successfully');
+        return response()->json(['status'=>'Topic deleted successfully']);
+        // return redirect()->route('topics.index')->with('success','Topic deleted successfully');
     }
 }

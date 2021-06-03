@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
     @yield('title')
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/charts-c3/plugin.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/plugins/dropify/css/dropify.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
     <style>
@@ -384,6 +386,7 @@
 <script src="{{asset('assets/js/pages/forms/dropify.js')}}"></script>
 
  <script src="{{asset('assets/js/pages/blog/blog.js')}}"></script> 
+ @yield('scripts')
 </body>
 
 

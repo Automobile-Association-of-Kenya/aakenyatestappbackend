@@ -117,7 +117,7 @@ class TestController extends Controller
     {
         $test=Test::findOrFail($id);
         $test->delete();
-
-        return redirect()->route('tests.index')->with('success','Test deleted successfully');
+        
+        return response()->json(['status'=>'Test deleted successfully']);
     }
 }
