@@ -58,10 +58,10 @@ class MobileRoutesController extends Controller
             return $this->jsonResponse(true, 'Invalid credentials', 'Error', $data->messages());
         }
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
         ]);
             if($user){
                 return $this->jsonResponse(false, 'User registered successfully', 'user', $user);
