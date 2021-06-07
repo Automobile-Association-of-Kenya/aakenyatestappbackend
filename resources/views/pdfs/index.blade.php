@@ -32,6 +32,11 @@
                                     @forelse ($pdfs as $item)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
                                         <div class="card">
+                                            @if (session('success'))
+                                                <div class="alert alert-success">
+                                                    {{session('success')}}
+                                                </div>
+                                             @endif
                                             <div class="file">
                                                     <div class="align-right">
                                                         <a href="{{route('pdfs.edit',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">

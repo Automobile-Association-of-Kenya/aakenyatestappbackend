@@ -107,7 +107,7 @@
                     }
                     $.ajax({
                         type: "DELETE",
-                        url: '/tests/'+delete_value,
+                        url: "/tests/"+delete_value+"/delete",
                         data: data,
                         success: function (response) {
                             swal(response.status, {

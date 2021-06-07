@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/charts-c3/plugin.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/plugins/dropify/css/dropify.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
     <style>

@@ -153,7 +153,7 @@
                     }
                     $.ajax({
                         type: "DELETE",
-                        url: '/questions/'+delete_value,
+                        url: '/questions/'+delete_value+"/delete",
                         data: data,
                         success: function (response) {
                             swal(response.status, {

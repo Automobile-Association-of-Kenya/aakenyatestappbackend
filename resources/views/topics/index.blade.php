@@ -105,7 +105,7 @@
                     }
                     $.ajax({
                         type: "DELETE",
-                        url: '/topics/'+delete_value,
+                        url: '/topics/'+delete_value+"/delete",
                         data: data,
                         success: function (response) {
                             swal(response.status, {
