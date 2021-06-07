@@ -100,7 +100,7 @@ class MobileRoutesController extends Controller
         {
             return $this->jsonResponse(true, 'Invalid code.', null, null);
         }
-      
+        DB::table('mobile_resets')->where('email',$request->email)->where('code',$request->code)->delete();
         return $this->jsonResponse(false, 'Password reset code verification successful', 'email', $credentials);
     }
 

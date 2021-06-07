@@ -30,6 +30,13 @@
                             <h2><strong>Create</strong> Topic</h2>
                         </div>
                         <div class="body">
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $item)
+                                    {{$item}}<br>
+                                @endforeach
+                            </div>
+                            @endif
                             <form action="{{route('topics.store')}}" method="POST" >
                                 @csrf
                                 <div class="form-group form-float">

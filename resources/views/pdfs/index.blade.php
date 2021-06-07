@@ -28,25 +28,27 @@
                     <div class="card">
                         <div class="tab-content">
                             <div class="tab-pane active">
+                                @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{session('success')}}
+                                </div>
+                                @endif
                                 <div class="row clearfix">
+                                   
                                     @forelse ($pdfs as $item)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
                                         <div class="card">
-                                            @if (session('success'))
-                                                <div class="alert alert-success">
-                                                    {{session('success')}}
-                                                </div>
-                                             @endif
+                                           
                                             <div class="file">
                                                     <div class="align-right">
+                                                        <input type="hidden" class="video" value="{{$item->id}}">
+                                                        <a href="{{route('pdfs.show',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">
+                                                            <i class="zmdi zmdi-download"></i>
+                                                        </a>
                                                         <a href="{{route('pdfs.edit',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </a>
-                                                        <form id="form" action="{{route('pdfs.destroy',$item->id)}}" method="post" style="display: inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                        </form>
-                                                        <button form="form" type="submit" class="btn btn-icon btn-icon-mini btn-round btn-danger">
+                                                        <button  type="button" class="btn btn-icon btn-icon-mini btn-round btn-danger topicdelete">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </button>
 
@@ -73,4 +75,63 @@
         </div>
     </div>
 </section>
+@endsection
+@section('scripts')
+<script>
+ $(document).ready(function(){
+     //Prview video
+    $(document).on('click','.view-video',function(){
+            $('#myModal').modal();
+            $("#playvideo").attr('src', $(this).attr('data-link'));
+    }) 
+    $('#myModal').on('hide.bs.modal', function (e) {
+        $("#playvideo").attr('src',''); 
+    }) 
+//Delete modal
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(".topicdelete").click(function (e) { 
+        e.preventDefault();
+        var delete_value= $(this).closest(".align-right").find('.video').val();
+        //alert(delete_value);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this PDF file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            var data={
+                "_token": $('input[name="csrf-token"]').val(),
+                "id":delete_value,
+            }
+            $.ajax({
+                type: "DELETE",
+                url: '/pdfs/'+delete_value,
+                data: data,
+                success: function (response) {
+                    swal(response.status, {
+                        icon: "success",
+                    })
+                    .then((result) => {
+                        location.reload();
+                    });
+                }
+            });
+
+        } else {
+                swal("Your PDF is safe!");
+        }
+        });
+    });
+});
+
+     
+   
+</script>
 @endsection

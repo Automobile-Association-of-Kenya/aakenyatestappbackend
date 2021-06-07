@@ -40,7 +40,6 @@
                             <form action="{{route('users.store')}}" method="POST" >
                                 @csrf
                                 <label for="">User Name </label>
-                                <input type="hidden" name="role_id" value="1">
                                 <div class="form-group form-float">
                                     <input type="text" class="form-control" placeholder="User Name" name="name" >
                                 </div>
@@ -51,6 +50,13 @@
                                 <label for="topic">Phone</label> 
                                 <div class="form-group form-float">
                                     <input type="number" class="form-control" name="phone" placeholder="Phone Number" id="">
+                                </div>
+                                <label for="topic">Role</label> 
+                                <div class="form-group form-float">
+                                    <select class="form-control show-tick ms select2" name="role" >
+                                        <option type="text" value="1">Admin</option>
+                                        <option type="text" value="0">Super Admin</option>
+                                    </select>
                                 </div>
                                 <label for="topic">Password</label> 
                                 <div class="form-group form-float">

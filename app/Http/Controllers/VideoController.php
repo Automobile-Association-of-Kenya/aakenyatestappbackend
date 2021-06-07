@@ -44,7 +44,7 @@ class VideoController extends Controller
         ]);
       
         $video=$request->video;
-        $video_name=time().'_.'.$video->getClientOriginalName();
+        $video_name=time().'.'.$video->getClientOriginalExtension();
         $video->move(public_path("uploads"), $video_name);
 
         $video= new Video;
@@ -103,7 +103,7 @@ class VideoController extends Controller
             ]);
           
             $video_file=$request->video;
-            $video_name=time().'_.'.$video_file->getClientOriginalName();
+            $video_name=time().'.'.$video->getClientOriginalExtension();
             $video_file->move(public_path("uploads"), $video_name);
         }
         
@@ -126,6 +126,6 @@ class VideoController extends Controller
         $video=Video::findOrFail($id);
         $video->delete();
 
-        return redirect()->route('videos.index')->with('success','Video deleted successfully');
+        return response()->json(['status'=>'Video deleted successfully']);
     }
 }

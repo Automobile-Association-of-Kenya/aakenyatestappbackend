@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\UserAddedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -47,9 +48,11 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->phone=$request->phone;
-        $user->role_id=$request->role_id;
+        $user->role_id=$request->role;
         $user->password=Hash::make($request->password);
         $user->save();
+
+        $user->notify(new UserAddedNotification);
         
         return redirect()->route('users.index')->with('success','User created successfully');
     }
@@ -95,6 +98,7 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->phone=$request->phone;
+        $user->role_id=$request->role;
         $user->save();
         
         return redirect()->route('users.index')->with('success','User updated successfully');

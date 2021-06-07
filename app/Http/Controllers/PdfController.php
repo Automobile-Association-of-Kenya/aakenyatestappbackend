@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pdf;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PdfController extends Controller
 {
@@ -44,7 +45,7 @@ class PdfController extends Controller
         ]);
       
         $pdf=$request->pdf;
-        $pdf_name=time().'_.'.$pdf->getClientOriginalName();
+        $pdf_name=time().'.'.$pdf->getClientOriginalExtension();
         $pdf->move(public_path("pdfs_uploads"), $pdf_name);
 
         $pdf= new PDF;
@@ -64,7 +65,15 @@ class PdfController extends Controller
      */
     public function show($id)
     {
-        //
+       $pdf=Pdf::findOrFail($id);
+        $file= public_path(). "/pdfs_uploads/".$pdf->pdf;
+        $file_name=$pdf->title.'.pdf';
+        $headers = [
+            'Content-Type' => 'application/pdf',
+         ];
+    
+        return Response::download($file, $file_name, $headers);
+    
     }
 
     /**
@@ -102,7 +111,7 @@ class PdfController extends Controller
             ]);
           
             $pdf_file=$request->pdf;
-            $pdf_name=time().'_.'.$pdf_file->getClientOriginalName();
+            $pdf_name=time().'.'.$pdf->getClientOriginalExtension();
             $pdf_file->move(public_path("pdfs_uploads"), $pdf_name);
         }
         
@@ -125,6 +134,6 @@ class PdfController extends Controller
         $pdf=Pdf::findOrFail($id);
         $pdf->delete();
 
-        return redirect()->route('pdfs.index')->with('success','PDF deleted successfully');
+        return response()->json(['status'=>'PDF deleted successfully']);
     }
 }

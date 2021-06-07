@@ -80,6 +80,7 @@ Route::delete('videos/{id}',[VideoController::class,'destroy'])->name('videos.de
 Route::get('/pdfs/index',[PdfController::class,'index'])->name('pdfs.index');
 Route::get('/pdfs/create',[PdfController::class,'create'])->name('pdfs.create');
 Route::post('/pdfs',[PdfController::class,'store'])->name('pdfs.store');
+Route::get('/pdfs/{id}/show',[PdfController::class,'show'])->name('pdfs.show');
 Route::get('/pdfs/{id}/edit',[PdfController::class,'edit'])->name('pdfs.edit');
 Route::patch('pdfs/{id}',[PdfController::class,'update'])->name('pdfs.update');
 Route::delete('pdfs/{id}',[PdfController::class,'destroy'])->name('pdfs.destroy');

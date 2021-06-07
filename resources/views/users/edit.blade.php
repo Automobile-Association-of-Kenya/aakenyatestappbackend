@@ -52,6 +52,13 @@
                                 <div class="form-group form-float">
                                     <input type="number" value="{{$user->phone}}" class="form-control" name="phone" placeholder="Phone Number" id="">
                                 </div>
+                                <label for="topic">Role</label> 
+                                <div class="form-group form-float">
+                                    <select class="form-control show-tick ms select2" name="role" >
+                                        <option type="text" value="1" {{$user->role_id==1 ?'selected':''}}>Admin</option>
+                                        <option type="text" value="0" {{$user->role_id==0 ?'selected':''}}>Super Admin</option>
+                                    </select>
+                                </div>
                                 <button class="btn btn-primary" type="submit" >Update User</button>
                             </form>
                         </div>

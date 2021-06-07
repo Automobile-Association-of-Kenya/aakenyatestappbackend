@@ -30,6 +30,13 @@
                             <h2><strong>Edit</strong> Topic</h2>
                         </div>
                         <div class="body">
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $item)
+                                    {{$item}}<br>
+                                @endforeach
+                            </div>
+                            @endif
                             <form action="{{route('topics.update',$topic->id)}}" method="POST" >
                                 @csrf
                                 @method('patch')

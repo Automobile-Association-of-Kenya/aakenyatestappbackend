@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
@@ -48,6 +49,7 @@ class TopicController extends Controller
         $topic=new Topic;
         $topic->title=$request->title;
         $topic->description=$request->description;
+        $topic->user=Auth::user()->name;
         $topic->save();
 
         return redirect()->route('topics.index')->with('success','Topic added successfully');
@@ -109,6 +111,5 @@ class TopicController extends Controller
         $topic->delete();
 
         return response()->json(['status'=>'Topic deleted successfully']);
-        // return redirect()->route('topics.index')->with('success','Topic deleted successfully');
     }
 }

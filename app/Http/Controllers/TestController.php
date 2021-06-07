@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
@@ -52,6 +53,7 @@ class TestController extends Controller
        $test->code=$request->code;
        $test->title=$request->title;
        $test->topic_id=$request->topic_id;
+       $test->user=Auth::user()->name;
        $test->save();
        
        return redirect()->route('tests.index')->with('success','Test created successfully');

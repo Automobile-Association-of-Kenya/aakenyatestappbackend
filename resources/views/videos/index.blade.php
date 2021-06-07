@@ -35,17 +35,29 @@
                                         <div class="card">
                                             <div class="file">
                                                     <div class="align-right">
+                                                        <input type="hidden" class="video" value="{{$item->id}}">
+                                                        <a  data-link="{{ asset('uploads/'.$item->video)}}" data-name="{{ $item->title}}" data-target="#myModal" class="btn btn-icon btn-icon-mini btn-round btn-primary view-video text-white" data-toggle="modal"><i class="zmdi zmdi-eye"></i></a>
                                                         <a href="{{route('videos.edit',$item->id)}}" class="btn btn-icon btn-icon-mini btn-round btn-primary">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </a>
-                                                        <form id="form" action="{{route('videos.destroy',$item->id)}}" method="post" style="display: inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                        </form>
-                                                        <button form="form" type="submit" class="btn btn-icon btn-icon-mini btn-round btn-danger">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-
+                                                            <button type="button" class="btn btn-icon btn-icon-mini btn-round btn-danger topicdelete">
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </button>
+                                                          <div id="myModal" class="modal fade">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Preview Video</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                      <div class="embed-responsive embed-responsive-16by9">
+                                                                        <video id="playvideo" autoplay controls src="" allowfullscreen controlsList="nodownload"></video>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="icon">
                                                         <i class="zmdi zmdi-collection-video"></i>
@@ -69,4 +81,63 @@
         </div>
     </div>
 </section>
+@endsection
+@section('scripts')
+<script>
+ $(document).ready(function(){
+     //Prview video
+    $(document).on('click','.view-video',function(){
+            $('#myModal').modal();
+            $("#playvideo").attr('src', $(this).attr('data-link'));
+    }) 
+    $('#myModal').on('hide.bs.modal', function (e) {
+        $("#playvideo").attr('src',''); 
+    }) 
+//Delete modal
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(".topicdelete").click(function (e) { 
+        e.preventDefault();
+        var delete_value= $(this).closest(".align-right").find('.video').val();
+        //alert(delete_value);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this video!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            var data={
+                "_token": $('input[name="csrf-token"]').val(),
+                "id":delete_value,
+            }
+            $.ajax({
+                type: "DELETE",
+                url: '/videos/'+delete_value,
+                data: data,
+                success: function (response) {
+                    swal(response.status, {
+                        icon: "success",
+                    })
+                    .then((result) => {
+                        location.reload();
+                    });
+                }
+            });
+
+        } else {
+                swal("Your video is safe!");
+        }
+        });
+    });
+});
+
+     
+   
+</script>
 @endsection

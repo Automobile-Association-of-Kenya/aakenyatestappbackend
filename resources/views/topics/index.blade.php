@@ -33,6 +33,7 @@
                                         
                                         <th data-breakpoints="sm xs">Topic</th>
                                         <th data-breakpoints="xs">Description</th>
+                                        <th data-breakpoints="xs">Added By:</th>
                                         <th data-breakpoints="sm xs md">Action</th>
                                     </tr>
                                 </thead>
@@ -51,7 +52,8 @@
                                         <tr>
                                             <input type="hidden" class="delete_value_id" value="{{$item->id}}">
                                             <td><h5>{{$item->title}}</h5></td>
-                                            <td><span class="text-muted">{{Str::limit($item->description,65)}}</span></td>
+                                            <td><span class="text-muted">{{Str::limit($item->description,60)}}</span></td>
+                                            <td>{{$item->user}}</td>
                                             <td>
                                                 <a href="{{route('topics.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                                <button type="button"  class="btn btn-default waves-effect waves-float btn-sm waves-red topicdelete"><i class="zmdi zmdi-delete"></i></button>  
