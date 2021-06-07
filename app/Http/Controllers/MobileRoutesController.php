@@ -43,15 +43,20 @@ class MobileRoutesController extends Controller
             'user', null);
     }
 
-    public function register()
+    public function register(Request $request)
     {
         
-        $data = request()->validate([
+        $data = Validator::make($request->all(),[
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone'=>['']
         ]);
+       
+        if($data->fails())
+        {
+            return $this->jsonResponse(true, 'Invalid credentials', 'Error', $data->messages());
+        }
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
