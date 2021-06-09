@@ -48,4 +48,7 @@ Route::get('/results',[MobileRoutesController::class,'results']);
 
 //References
 Route::get('/videos',[MobileRoutesController::class,'videos']);//Videos
+Route::get('/video/{id}',[MobileRoutesController::class,'video']);//Videos
+
 Route::get('/pdfs',[MobileRoutesController::class,'pdfs']);
+Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//Videos

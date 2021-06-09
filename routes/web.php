@@ -12,6 +12,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MobileRoutesController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,3 +85,9 @@ Route::get('/pdfs/{id}/show',[PdfController::class,'show'])->name('pdfs.show');
 Route::get('/pdfs/{id}/edit',[PdfController::class,'edit'])->name('pdfs.edit');
 Route::patch('pdfs/{id}',[PdfController::class,'update'])->name('pdfs.update');
 Route::delete('pdfs/{id}',[PdfController::class,'destroy'])->name('pdfs.destroy');
+
+Route::get('reports/users',[ReportsController::class,'users'])->name('reports.users');
+Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.tests');
+Route::get('reports/payments',[ReportsController::class,'payments'])->name('reports.payments');
+Route::get('reports/videos',[ReportsController::class,'videos'])->name('reports.videos');
+Route::get('reports/pdfs',[ReportsController::class,'pdfs'])->name('reports.pdfs');

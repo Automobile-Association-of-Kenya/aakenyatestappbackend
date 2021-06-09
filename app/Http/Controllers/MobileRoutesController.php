@@ -215,9 +215,19 @@ class MobileRoutesController extends Controller
         $videos= Video::all();
         return $this->jsonResponse(false, 'All Videos', 'Videos', $videos);
     }
+    public function video($id)
+    {
+        $video= Video::findOrFail($id);
+        return $this->jsonResponse(false, 'View Video', 'Video', $video);
+    }
     public function pdfs()
     {
         $pdfs= Pdf::all();
         return $this->jsonResponse(false, 'All PDFs', 'PDFs', $pdfs);
+    }
+    public function pdf($id)
+    {
+        $pdf= PDF::findOrFail($id);
+        return $this->jsonResponse(false, 'View PDF', 'PDF', $pdf);
     }
 }

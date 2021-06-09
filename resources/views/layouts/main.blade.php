@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/dropify/css/dropify.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/plugins/charts-c3/plugin.css')}}"/>
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
     <style>
@@ -195,11 +196,11 @@
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
                     <ul class="ml-menu">
-                        <li><a href="javascript:void(0);">Registered Users</a></li>
-                        <li><a href="javascript:void(0);">Tests </a></li>
-                        <li><a href="javascript:void(0);">Payments</a></li>
-                        <li><a href="javascript:void(0);">Videos Watched </a></li>
-                        <li><a href="javascript:void(0);">PDFs Read </a></li>
+                        <li><a href="{{route('reports.users')}}">Registered Users</a></li>
+                        <li><a href="{{route('reports.tests')}}">Tests </a></li>
+                        <li><a href="{{route('reports.payments')}}">Payments</a></li>
+                        <li><a href="{{route('reports.videos')}}">Videos Watched </a></li>
+                        <li><a href="{{route('reports.pdfs')}}">PDFs Read </a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Account Settings</span></a>
@@ -377,17 +378,16 @@
 
 <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js --> 
 
-<script src="{{asset('assets/bundles/jvectormap.bundle.js')}}"></script> <!-- JVectorMap Plugin Js -->
+{{-- <script src="{{asset('assets/bundles/jvectormap.bundle.js')}}"></script> <!-- JVectorMap Plugin Js --> --}}
 
-<script src="{{asset('assets/bundles/sparkline.bundle.js')}}"></script> <!-- Sparkline Plugin Js -->
+ <script src="{{asset('assets/bundles/sparkline.bundle.js')}}"></script> <!-- Sparkline Plugin Js -->
 <script src="{{asset('assets/bundles/c3.bundle.js')}}"></script> 
-
 <script src="{{asset('assets/plugins/dropify/js/dropify.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/forms/dropify.js')}}"></script>
-
  <script src="{{asset('assets/js/pages/blog/blog.js')}}"></script> 
+ <script src="{{asset('assets/bundles/morrisscripts.bundle.js')}}"></script> <!-- Morris Plugin Js -->
+ 
+
  @yield('scripts')
 </body>
-
-
 </html>
