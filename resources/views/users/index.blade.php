@@ -53,10 +53,10 @@
                                             <label for="delete_2">USER#{{$item->id}}</label>
                                         </td>
                                         <td>
-                                            @if (Auth::user()->photo==null)
+                                            @if ($item->photo==null)
                                                 <a class="avatar w30" href="profile.html"><i class="zmdi zmdi-account-circle zmdi-hc-2x mr-5 "></i></a>
                                             @else
-                                                <img src="assets/images/xs/avatar1.jpg" class="avatar w30" alt="">
+                                                <img src="{{asset('Images/'.$item->photo)}}" class="avatar w30" alt="">
                                             @endif
                                             <p class="c_name">{{$item->name}}</p>
                                         </td>

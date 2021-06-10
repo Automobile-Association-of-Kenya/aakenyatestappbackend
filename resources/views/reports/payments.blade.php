@@ -38,21 +38,21 @@
                                     <div class="icon xl-amber m-b-15"><i class="zmdi zmdi-chart-donut"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">This Month</small>
-                                        <h4 class="mt-0">Kshs 30,000</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$payments->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="icon xl-blue m-b-15"><i class="zmdi zmdi-chart"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">This Year</small>
-                                        <h4 class="mt-0">Kshs 600,000</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$payments->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="icon xl-purple m-b-15"><i class="zmdi zmdi-card"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">Total Payments</small>
-                                        <h4 class="mt-0">Kshs 1,200,000</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$payments->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                             </div>
@@ -72,29 +72,36 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="body">
-                            <form>
-                                <div class="row clearfix align-right">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 mt-2">
-                                        <div class="form-group">
-                                            <label for="">Filter by month</label>
-                                        </div>
+                        <form method="GET">
+                            <div class="row clearfix align-right">
+                                <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
+                                    <div class="form-group">
+                                        <label for="">From</label>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="form-group">
-                                            <input type="month" class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-0.2 col-md-0.2 col-sm-0.2 ">
-                                        <button type="submit" class="mt-2 ml-0" style="background:transparent;border:none;"><i class="zmdi zmdi-search"></i></button>          
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                        <button class="btn btn-primary btn-small" type="button"><i class="zmdi zmdi-print text-white"></i></button>
-                                    </div>
-
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" name="from" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
+                                    <div class="form-group">
+                                        <label for="">To</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" name="to" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-0.2 col-md-0.2 col-sm-0.2 ">
+                                    <button type="submit" class="mt-2 ml-0" style="background:transparent;border:none;"><i class="zmdi zmdi-search"></i></button>          
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm- ">
+                                    <button class="btn btn-primary btn-small" type="button"><i class="zmdi zmdi-print text-white"></i></button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-hover c_table">
                                 <thead>
@@ -107,34 +114,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse ($payments as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td>MP3E3ND300</td>
-                                        <td>Abraham</td>
-                                        <td>12-04-2020</td>
-                                        <td>3000</td>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->reference_code}}</td>
+                                        <td>{{$item->user->name}}</td>
+                                        <td>{{$item->created_at}}</td>
+                                        <td>{{$item->amount}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>MP3E3N93D</td>
-                                        <td>Maina</td>
-                                        <td>20-02-2021 </td>
-                                        <td>4000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>ODUJE3453D</td>
-                                        <td>Ochieng</td>
-                                        <td>13-05-2021</td>
-                                        <td>2000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>NDJE3FR3</td>
-                                        <td>Hillary</td>
-                                        <td>13-04-2020</td>
-                                        <td>1800</td>
-                                    </tr>
+                                    @empty
+                                        <td>No payment records to show</td>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

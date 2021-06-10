@@ -13,4 +13,8 @@ class Video extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+    public function views()
+    {
+        return $this->hasMany(VideoView::class);
+    }
 }

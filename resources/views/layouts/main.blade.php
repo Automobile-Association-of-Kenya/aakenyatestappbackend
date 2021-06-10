@@ -166,7 +166,7 @@
                         @if (Auth::user()->photo==null)
                             <a class="image" href="/"><i class="zmdi zmdi-account-circle zmdi-hc-5x mr-5 "></i></a>
                         @else
-                            <a class="image" href="/"><img src="{{asset('assets/images/profile_av.jpg')}}" alt=""></a>
+                            <a class="image" href="/"><img src="{{asset('Images/'.Auth::user()->photo)}}" alt=""></a>
                         @endif
                         <div class="detail">
                            @auth
@@ -208,9 +208,9 @@
                         @can('superadmin')
                             <li><a href="{{route('users.index')}}">Admin Users</a></li>
                         @endcan
-                        <li><a href="javascript:void(0);">Profile</a></li>
+                        <li><a href="{{route('profile',Auth::user()->id)}}">Update Profile</a></li>
+                        <li><a href="{{route('password')}}">Change Password</a></li>
                         <li class="mr-0" style="margin-left: -2%"><button type="submit" form="logout" class="bg-transparent border-0 m-0" title="Sign Out"><a>Logout</a></button></li>
-                        <li><a href="javascript:void(0);">Change Password</a></li>
                         <form id="logout" action="{{route('logout')}}" method="post">@csrf</form>
                     </ul>
                 </li>

@@ -12,6 +12,9 @@ use App\Models\Result;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Mail\SendVerificationCode;
+use App\Models\Payment;
+use App\Models\PdfRead;
+use App\Models\VideoView;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -230,4 +233,33 @@ class MobileRoutesController extends Controller
         $pdf= PDF::findOrFail($id);
         return $this->jsonResponse(false, 'View PDF', 'PDF', $pdf);
     }
+    public function payments(Request $request)
+    {
+        $payment= new Payment;
+        $payment->user_id=$request->user_id;
+        $payment->reference_code=$request->code;
+        $payment->amount=$request->amount;
+        $payment->save();
+
+        return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+    }
+    public function videoviews(Request $request)
+    {
+        $view=new VideoView;
+        $view->user_id=$request->user_id;
+        $view->video_id=$request->video_id;
+        $view->save();
+
+        return $this->jsonResponse(false, 'Video viewed', 'view', $view);
+    }
+    public function pdfreads(Request $request)
+    {
+        $read=new PdfRead;
+        $read->user_id=$request->user_id;
+        $read->pdf_id=$request->pdf_id;
+        $read->save();
+
+        return $this->jsonResponse(false, 'PDF read', 'read', $read);
+    }
+    
 }

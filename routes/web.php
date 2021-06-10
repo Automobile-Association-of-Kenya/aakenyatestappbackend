@@ -35,8 +35,13 @@ Route::get('/fallback',function()
 {
     return view('auth.fallback');
 })->name('fallback');
-    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('adminonly');
-   
+
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('adminonly');
+Route::get('/profile/{id}', [HomeController::class, 'profile'])->name('profile');
+Route::post('/profile/{id}', [HomeController::class, 'update'])->name('profile.update');
+Route::get('/password',[HomeController::class,'password'])->name('password');
+Route::post('/password/{id}',[HomeController::class,'change'])->name('password.change');
+
 Route::get('/topics',[TopicController::class,'index'])->name('topics.index');
 Route::get('/topics/create',[TopicController::class,'create'])->name('topics.create');
 Route::post('/topics',[TopicController::class,'store'])->name('topics.store');

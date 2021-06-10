@@ -13,4 +13,8 @@ class Pdf extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+    public function views()
+    {
+        return $this->hasMany(PdfRead::class);
+    }
 }

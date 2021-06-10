@@ -25,16 +25,16 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-6 text-center">
                     <div class="card">
                         <div class="body">                            
-                            <input type="text" class="knob" value="42" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#055F43" readonly>
+                            <input type="text" class="knob" value="{{$tests->count()}}" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#055F43" readonly>
                             <p>Tests <br><small>Total</small> </p>
                             <div class="d-flex bd-highlight text-center mt-4">
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Created</small>
-                                    <h5 class="mb-0">254</h5>
+                                    <h5 class="mb-0">{{$tests->count()}}</h5>
                                 </div>
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Attempted</small>
-                                    <h5 class="mb-0">254</h5>
+                                    <h5 class="mb-0">{{$results->count()}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -43,12 +43,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-6 text-center">
                     <div class="card">
                         <div class="body">                            
-                            <input type="text" class="knob" value="81" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#F9DD22" readonly>
+                            <input type="text" class="knob" value="{{$results->average('score')}}" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#F9DD22" readonly>
                             <p>Mean Score <br><small>Total</small></p>
                             <div class="d-flex bd-highlight text-center mt-4">
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Mean Score</small>
-                                    <h5 class="mb-0">34</h5>
+                                    <h5 class="mb-0">{{$results->average('score')}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -57,16 +57,16 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-6 text-center">
                     <div class="card">
                         <div class="body">                            
-                            <input type="text" class="knob" value="62" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#055F43" readonly>
-                            <p>Total Tests <br> <small>This Month</small> </p>
+                            <input type="text" class="knob" value="{{$tests->count()}}" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#055F43" readonly>
+                            <p>Total Tests <br> <small>This Year</small> </p>
                             <div class="d-flex bd-highlight text-center mt-4">
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Created</small>
-                                    <h5 class="mb-0">25</h5>
+                                    <h5 class="mb-0">{{$tests->count()}}</h5>
                                 </div>
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Attempted</small>
-                                    <h5 class="mb-0">12</h5>
+                                    <h5 class="mb-0">{{$results->count()}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -75,12 +75,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-6 text-center">
                     <div class="card">
                         <div class="body">                            
-                            <input type="text" class="knob" value="38" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#F9DD22" readonly>
-                            <p>Mean Score <br><small>This Month</small> </p>
+                            <input type="text" class="knob" value="{{$results->average('score')}}" data-linecap="round" data-width="100" data-height="100" data-thickness="0.08" data-fgColor="#F9DD22" readonly>
+                            <p>Mean Score <br><small>This Year</small> </p>
                             <div class="d-flex bd-highlight text-center mt-4">
                                 <div class="flex-fill bd-highlight">
                                     <small class="text-muted">Mean Score</small>
-                                    <h5 class="mb-0">15</h5>
+                                    <h5 class="mb-0">{{$results->average('score')}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -93,27 +93,38 @@
                         <div class="header">
                             <h2><strong>Tests</strong> Reports</h2>
                             <div class="body">
-                                <form>
+                                <form method="GET">
                                     <div class="row clearfix align-right">
-                                        <div class="col-lg-2 col-md-2 col-sm-2 mt-2">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
                                             <div class="form-group">
-                                                <label for="">Filter by month</label>
+                                                <label for="">From</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <input type="month" class="form-control" >
+                                                <input type="date" class="form-control" name="from" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
+                                            <div class="form-group">
+                                                <label for="">To</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <div class="form-group">
+                                                <input type="date" class="form-control" name="to" >
                                             </div>
                                         </div>
                                         <div class="col-lg-0.2 col-md-0.2 col-sm-0.2 ">
                                             <button type="submit" class="mt-2 ml-0" style="background:transparent;border:none;"><i class="zmdi zmdi-search"></i></button>          
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                        <div class="col-lg-3 col-md-3 col-sm- ">
                                             <button class="btn btn-primary btn-small" type="button"><i class="zmdi zmdi-print text-white"></i></button>
                                         </div>
-                
+
                                     </div>
-                                </form>  
+                                </form>
+                               
                             </div>
                         </div>
                         <br>
@@ -129,7 +140,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($tests as $item)
+                                    @forelse ($all_tests as $item)
                                     <tr>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->title}}</td>
@@ -143,7 +154,7 @@
                                     
                                 </tbody>
                             </table>
-                            {{$tests->links()}}
+                            {{$all_tests->links()}}
                         </div>
                     </div>
                 </div>

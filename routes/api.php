@@ -49,6 +49,10 @@ Route::get('/results',[MobileRoutesController::class,'results']);
 //References
 Route::get('/videos',[MobileRoutesController::class,'videos']);//Videos
 Route::get('/video/{id}',[MobileRoutesController::class,'video']);//Videos
+Route::post('/video/view',[MobileRoutesController::class,'videoviews']);
 
 Route::get('/pdfs',[MobileRoutesController::class,'pdfs']);
-Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//Videos
+Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//PDFS
+Route::post('/pdf/read',[MobileRoutesController::class,'pdfreads']);
+
+Route::post('/payments',[MobileRoutesController::class,'payments']);
