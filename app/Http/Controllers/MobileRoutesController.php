@@ -9,17 +9,19 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\Video;
 use App\Models\Result;
-use App\Models\Question;
-use Illuminate\Http\Request;
-use App\Mail\SendVerificationCode;
 use App\Models\Payment;
 use App\Models\PdfRead;
+use App\Models\Question;
 use App\Models\VideoView;
+use Illuminate\Http\Request;
+use App\Mail\SendVerificationCode;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use App\Notifications\SystemNotification;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class MobileRoutesController extends Controller
@@ -67,6 +69,9 @@ class MobileRoutesController extends Controller
             'password' => Hash::make($request->password),
         ]);
             if($user){
+               $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+               $type='register';
+               Notification::send($admins, new SystemNotification($type,$user));
                 return $this->jsonResponse(false, 'User registered successfully', 'user', $user);
             }
             else{
@@ -142,7 +147,10 @@ class MobileRoutesController extends Controller
         $user->email=$request->email;
         $user->phone=$request->phone;
         $user->save();
-
+        
+            $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+               $type='profile';
+               Notification::send($admins, new SystemNotification($type,$user));
         return $this->jsonResponse(false, 'User details updated successfully', 'User', $user);
     }
 
@@ -179,6 +187,11 @@ class MobileRoutesController extends Controller
         $result->test_id=$request->test_id;
         $result->score=$request->score;
         $result->save();
+
+            $user=User::findOrFail($request->user_id);
+            $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+            $type='test';
+            Notification::send($admins, new SystemNotification($type,$user));
         
         return $this->jsonResponse(false, 'Results saved','Results', $result);
     }
@@ -241,6 +254,10 @@ class MobileRoutesController extends Controller
         $payment->amount=$request->amount;
         $payment->save();
 
+        $user=User::findOrFail($request->user_id);
+        $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+        $type='payment';
+        Notification::send($admins, new SystemNotification($type,$user));
         return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
     }
     public function videoviews(Request $request)

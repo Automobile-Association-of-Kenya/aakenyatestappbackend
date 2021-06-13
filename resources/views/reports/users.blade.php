@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <input type="date" class="form-control" name="from" >
+                                                <input type="date" class="form-control" name="from" value="{{$from}}">
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
@@ -63,20 +63,27 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <input type="date" class="form-control" name="to" >
+                                                <input type="date" class="form-control" name="to" value="{{$to}}" >
                                             </div>
                                         </div>
                                         <div class="col-lg-0.2 col-md-0.2 col-sm-0.2 ">
                                             <button type="submit" class="mt-2 ml-0" style="background:transparent;border:none;"><i class="zmdi zmdi-search"></i></button>          
                                         </div>
+                                    </form>
                                         <div class="col-lg-3 col-md-3 col-sm- ">
-                                            <button class="btn btn-primary btn-small" type="button"><i class="zmdi zmdi-print text-white"></i></button>
+                                            <form action="{{route('pdf.users')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="to" value={{$to}}>
+                                                <input type="hidden" name="from" value={{$from}}>
+                                                <button class="btn btn-primary btn-small" type="submit"><i class="zmdi zmdi-print text-white"></i></button>
+                                            </form>
+                                            
                                         </div>
 
                                     </div>
-                                </form>
-                               
+                                
                             </div>
+
                            
                         </div>
                         <br>
@@ -86,9 +93,6 @@
                                     {{session('success')}}
                                 </div>
                             @endif
-                        
-                                    
-                              
                             <table class="table table-hover mb-0 c_list c_table">
                                 <thead>
                                     <tr>
@@ -124,7 +128,7 @@
                                             <span>{{$item->created_at}}</span>
                                         </td>
                                         <td>
-                                            <span>3</span>
+                                            <span>{{$item->results->count()}}</span>
                                         </td>
                                     </tr>
                                     @empty
@@ -132,8 +136,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                        </div>
-                        
+                        </div>  
                     </div>
                    <span class="text-primary">{{$users->links()}}</span> 
                 </div>
@@ -164,7 +167,19 @@ function initSparkline() {
                 data: {
                     columns: [
                         // each columns data
-                        ['data1', {{$a_data[0]}}, {{$a_data[1]}}, {{$a_data[2]}}, {{$a_data[3]}}, {{$a_data[4]}}, {{$a_data[5]}}, {{$a_data[6]}}, {{$a_data[7]}}, {{$a_data[8]}}, {{$a_data[9]}},{{$a_data[10]}},{{$a_data[11]}}],
+                        ['data1', 
+                        {{$a_data[0]}},
+                         {{$a_data[1]}}, 
+                         {{$a_data[2]}},
+                          {{$a_data[3]}},
+                           {{$a_data[4]}},
+                            {{$a_data[5]}}, 
+                            {{$a_data[6]}}, 
+                            {{$a_data[7]}}, 
+                            {{$a_data[8]}}, 
+                            {{$a_data[9]}},
+                        {{$a_data[10]}},
+                        {{$a_data[11]}}],
                         
                     ],
                     type: 'area-spline', // default type of chart
@@ -178,14 +193,16 @@ function initSparkline() {
                     },
                     names: {
                         // name of each serie
-                        'data1': 'No of registered users in past 12 months',
+                        'data1': 'No of registered users',
                     }
                 },
                 axis: {
                     x: {
                         type: 'category',
                         // name of each category
-                        categories: [{{$d[0]}}, {{$d[1]}}, {{$d[2]}}, {{$d[3]}}, {{$d[4]}}, {{$d[5]}}, {{$d[6]}}, {{$d[7]}}, {{$d[8]}}, {{$d[9]}},{{$d[10]}},{{$d[11]}}]
+                        categories: ['{{$d[0]}}','{{$d[1]}}','{{$d[2]}}','{{$d[3]}}','{{$d[4]}}','{{$d[5]}}',
+                        '{{$d[6]}}','{{$d[7]}}','{{$d[8]}}','{{$d[9]}}','{{$d[10]}}','{{$d[11]}}'
+                        ]
                     },
                 },
                 legend: {
@@ -197,6 +214,19 @@ function initSparkline() {
                 },
             });
         });    
+
+
+
+
+
+
+
+
+
+
+
+
+
         $(document).ready(function(){
             var chart = c3.generate({
                 bindto: '#chart-pie', // id of chart wrapper

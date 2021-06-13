@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Test;
 use App\Models\User;
 use App\Models\Question;
@@ -33,7 +34,8 @@ class HomeController extends Controller
        $users=User::where('role_id',2)->count();
        $tests=Test::all();
        $questions=Question::all()->count();
-        return view('dashboard.index',compact('users','tests','questions'));
+       $payments=Payment::orderBy('created_at','DESC')->get();
+        return view('dashboard.index',compact('users','tests','questions','payments'));
     }
     public function profile($id)
     {

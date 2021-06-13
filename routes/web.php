@@ -12,6 +12,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MobileRoutesController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ReportsController;
 
 /*
@@ -37,10 +38,10 @@ Route::get('/fallback',function()
 })->name('fallback');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('adminonly');
-Route::get('/profile/{id}', [HomeController::class, 'profile'])->name('profile');
-Route::post('/profile/{id}', [HomeController::class, 'update'])->name('profile.update');
-Route::get('/password',[HomeController::class,'password'])->name('password');
-Route::post('/password/{id}',[HomeController::class,'change'])->name('password.change');
+Route::get('settings/profile/{id}', [HomeController::class, 'profile'])->name('profile');
+Route::post('settings/profile/{id}', [HomeController::class, 'update'])->name('profile.update');
+Route::get('settings/password',[HomeController::class,'password'])->name('password');
+Route::post('settings/password/{id}',[HomeController::class,'change'])->name('password.change');
 
 Route::get('/topics',[TopicController::class,'index'])->name('topics.index');
 Route::get('/topics/create',[TopicController::class,'create'])->name('topics.create');
@@ -68,12 +69,12 @@ Route::post('/essays',[EssayController::class,'store'])->name('essays.store');
 Route::get('/essays/{id}/edit',[EssayController::class,'edit'])->name('essays.edit');
 Route::patch('essays/{id}',[EssayController::class,'update'])->name('essays.update');
 
-Route::get('/users',[UserController::class,'index'])->name('users.index');
-Route::get('/users/create',[UserController::class,'create'])->name('users.create');
-Route::post('/users',[UserController::class,'store'])->name('users.store');
-Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit');
-Route::patch('users/{id}',[UserController::class,'update'])->name('users.update');
-Route::delete('users/{id}',[UserController::class,'destroy'])->name('users.destroy');
+Route::get('settings/users',[UserController::class,'index'])->name('users.index');
+Route::get('settings/users/create',[UserController::class,'create'])->name('users.create');
+Route::post('settings/users',[UserController::class,'store'])->name('users.store');
+Route::get('settings/users/{id}/edit',[UserController::class,'edit'])->name('users.edit');
+Route::patch('settings/users/{id}',[UserController::class,'update'])->name('users.update');
+Route::delete('settings/users/{id}',[UserController::class,'destroy'])->name('users.destroy');
 
 
 Route::get('/videos/index',[VideoController::class,'index'])->name('videos.index');
@@ -96,3 +97,16 @@ Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.te
 Route::get('reports/payments',[ReportsController::class,'payments'])->name('reports.payments');
 Route::get('reports/videos',[ReportsController::class,'videos'])->name('reports.videos');
 Route::get('reports/pdfs',[ReportsController::class,'pdfs'])->name('reports.pdfs');
+
+Route::post('pdf/users',[ReportsController::class,'pdfusers'])->name('pdf.users');
+Route::post('pdf/tests',[ReportsController::class,'pdftests'])->name('pdf.tests');
+Route::post('pdf/payments',[ReportsController::class,'pdfpayments'])->name('pdf.payments');
+Route::post('pdf/videos',[ReportsController::class,'pdfvideos'])->name('pdf.videos');
+Route::post('pdf/pdfs',[ReportsController::class,'pdfpdfs'])->name('pdf.pdfs');
+
+Route::get('/notifications/index',[NotificationsController::class,'index'])->name('notifications.index');
+Route::get('/notifications/allread',[NotificationsController::class,'markallread'])->name('notifications.markallread');
+Route::get('/notifications/deleteall',[NotificationsController::class,'deleteall'])->name('notifications.deleteall');
+Route::get('/notifications/read/{id}',[NotificationsController::class,'markread'])->name('notifications.markread');
+Route::get('/notifications/delete/{id}',[NotificationsController::class,'delete'])->name('notifications.delete');
+Route::get('/notifications/show/{id}',[NotificationsController::class,'show'])->name('notifications.show');

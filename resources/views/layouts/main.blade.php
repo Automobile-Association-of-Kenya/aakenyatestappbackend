@@ -59,18 +59,18 @@
     <div class="overlay"></div>
     
     <!-- Main Search -->
-    <div id="search">
+    {{-- <div id="search">
         <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
         <form>
           <input type="search" value="" placeholder="Search..." />
           <button type="submit" class="btn btn-primary">Search</button>
         </form>
-    </div>
+    </div> --}}
     
     <!-- Right Icon menu Sidebar -->
     <div class="navbar-right">
         <ul class="navbar-nav">
-            <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+            {{-- <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li> --}}
             
             <li class="dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle" title="Notifications" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
@@ -80,72 +80,58 @@
                     <li class="header">Notifications</li>
                     <li class="body">
                         <ul class="menu list-unstyled">
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
-                                    <div class="menu-info">
-                                        <h4>8 New Members joined</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
-                                    <div class="menu-info">
-                                        <h4>4 Sales made</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy Doe</b> Deleted account</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy</b> Changed name</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Commented your post</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Updated status</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
-                                    <div class="menu-info">
-                                        <h4>Settings Updated</h4>
-                                        <p><i class="zmdi zmdi-time"></i> Yesterday </p>
-                                    </div>
-                                </a>
-                            </li>
+                            @forelse (Auth::user()->unReadNotifications as $item)
+                                @if ($item->data['type']=='register')
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                                        <div class="menu-info">
+                                            <h4>New user registered</h4>
+                                            <p><i class="zmdi zmdi-time"></i> {{$item->created_at->diffForHumans()}} </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                @elseif($item->data['type']=='profile')
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                                        <div class="menu-info">
+                                            <h4><b>{{$item->data['name']}}</b> updated profile</h4>
+                                            <p><i class="zmdi zmdi-time"></i>{{$item->created_at->diffForHumans()}} </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                @elseif($item->data['type']=='test')
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
+                                        <div class="menu-info">
+                                            <h4><b>{{$item->data['name']}}</b> completed a test</h4>
+                                            <p><i class="zmdi zmdi-time"></i> {{$item->created_at->diffForHumans()}} </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                @elseif($item->data['type']=='payment')
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
+                                        <div class="menu-info">
+                                            <h4><b>{{$item->data['name']}}</b>made a payment</h4>
+                                            <p><i class="zmdi zmdi-time"></i> {{$item->created_at->diffForHumans()}}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                @endif
+                            @empty
+                            <div class="menu-info">
+                                <li><h4>No new notifications</h4></li>
+                            </div>
+                                
+                            @endforelse
+                            
                         </ul>
                     </li>
-                    <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+                    <li class="footer"> <a href="{{route('notifications.index')}}">View All Notifications</a> </li>
                 </ul>
             </li>
            
@@ -177,7 +163,7 @@
                     </div>
                 </li>
                 <li class="{{(request()->is('home')) ? 'active open' : ''}}"><a href="{{route('home')}}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-                <li class="{{(request()->is('topics*')) ? 'active open' : ((request()->is('tests*')) ? 'active open' : '')}}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Tests</span></a>
+                <li class="{{(request()->is('topics*')) ? 'active open' : ((request()->is('tests*')) ? 'active open' : ((request()->is('essays')) ? 'active open': ''))}}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Tests</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('topics.index')}}">Topics</a></li>
                         <li><a href="{{route('tests.create')}}">Add Test</a></li>
@@ -186,7 +172,7 @@
                                  
                     </ul>
                 </li>
-                <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Reference</span></a>
+                <li class="{{(request()->is('videos*') ? 'active open': (request()->is('pdfs*') ? 'active open':''))}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Reference</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('videos.index')}}">Videos</a></li>
                         <li><a href="{{route('videos.create')}}">Add Video</a></li>
@@ -194,7 +180,7 @@
                         <li><a href="{{route('pdfs.create')}}">Add PDF</a></li>
                     </ul>
                 </li>
-                <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
+                <li class="{{(request()->is('reports*')) ? 'active open' : ''}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('reports.users')}}">Registered Users</a></li>
                         <li><a href="{{route('reports.tests')}}">Tests </a></li>
@@ -203,7 +189,7 @@
                         <li><a href="{{route('reports.pdfs')}}">PDFs Read </a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Account Settings</span></a>
+                <li class="{{(request()->is('settings*')) ? 'active open' : ''}}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Account Settings</span></a>
                     <ul class="ml-menu">
                         @can('superadmin')
                             <li><a href="{{route('users.index')}}">Admin Users</a></li>

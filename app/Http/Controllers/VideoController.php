@@ -47,9 +47,9 @@ class VideoController extends Controller
             'video'=>'required|mimes:mp4,mkv,mov,ogg,qt'
         ]);
       
-        $video=$request->video;
-        $video_name=time().'.'.$video->getClientOriginalExtension();
-        $video->move(public_path("uploads"), $video_name);
+        $video_file=$request->video;
+        $video_name=time().'.'.$video_file->getClientOriginalExtension();
+        $video_file->move(public_path("uploads"), $video_name);
 
         $video= new Video;
         $video->title=$request->title;
@@ -107,7 +107,7 @@ class VideoController extends Controller
             ]);
           
             $video_file=$request->video;
-            $video_name=time().'.'.$video->getClientOriginalExtension();
+            $video_name=time().'.'.$video_file->getClientOriginalExtension();
             $video_file->move(public_path("uploads"), $video_name);
         }
         

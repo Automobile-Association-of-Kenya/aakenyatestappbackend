@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <input type="date" class="form-control" name="from" >
+                                                <input type="date" class="form-control" name="from" value="{{$from}}">
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-1 col-sm-1 mt-2">
@@ -112,19 +112,25 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <input type="date" class="form-control" name="to" >
+                                                <input type="date" class="form-control" name="to" value="{{$to}}" >
                                             </div>
                                         </div>
                                         <div class="col-lg-0.2 col-md-0.2 col-sm-0.2 ">
                                             <button type="submit" class="mt-2 ml-0" style="background:transparent;border:none;"><i class="zmdi zmdi-search"></i></button>          
                                         </div>
+                                    </form>
                                         <div class="col-lg-3 col-md-3 col-sm- ">
-                                            <button class="btn btn-primary btn-small" type="button"><i class="zmdi zmdi-print text-white"></i></button>
+                                            <form action="{{route('pdf.tests')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="to" value={{$to}}>
+                                                <input type="hidden" name="from" value={{$from}}>
+                                                <button class="btn btn-primary btn-small" type="submit"><i class="zmdi zmdi-print text-white"></i></button>
+                                            </form>
+                                            
                                         </div>
 
                                     </div>
-                                </form>
-                               
+                                
                             </div>
                         </div>
                         <br>
@@ -135,7 +141,9 @@
                                         <th style="width:60px;">#</th>
                                         <th>Title</th>
                                         <th>Topic</th>
-                                        <th>Number of Attempts</th>                                    
+                                        <th>Number of Attempts</th> 
+                                        <th>Highest score</th>   
+                                        <th>Lowest score</th>                                  
                                         <th>Mean Score</th>
                                     </tr>
                                 </thead>
@@ -145,8 +153,10 @@
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->title}}</td>
                                         <td>{{$item->topic->title}}</td>
-                                        <td>10</td>
-                                        <td>3</td>
+                                        <td>{{$item->results->count()}}</td>
+                                        <td>{{$item->results->max('score')}}</td>
+                                        <td>{{$item->results->min('score')}}</td>
+                                        <td>{{$item->results->average('score')}}</td>
                                     </tr>
                                     @empty
                                         <td>Nothing to show</td>
@@ -154,9 +164,10 @@
                                     
                                 </tbody>
                             </table>
-                            {{$all_tests->links()}}
+                           
                         </div>
                     </div>
+                    <span class="text-primary">{{$all_tests->links()}}</span> 
                 </div>
             </div>        
         </div>

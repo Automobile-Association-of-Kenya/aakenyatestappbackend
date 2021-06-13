@@ -64,8 +64,8 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="body xl-pink">
-                            <h4 class="mt-0 mb-0">15K</h4>
-                            <p class="mb-0">Revenue</p>
+                            <h4 class="mt-0 mb-0">Kshs {{$payments->sum('amount')}}</h4>
+                            <p class="mb-0">Total Revenue</p>
                             <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                             data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
                             data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="#FFFFFF"
@@ -90,6 +90,7 @@
                 <div class="table-responsive">
                     <table class="table table-hover c_table">
                         <thead>
+                            
                             <tr>
                                 <th style="width:60px;">#</th>
                                 <th>MPESA Code</th>
@@ -99,43 +100,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>MP3E3ND300</td>
-                                <td>Abraham</td>
-                                <td>12-04-2020</td>
-                                <td>3000</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>MP3E3N93D</td>
-                                <td>Maina</td>
-                                <td>20-02-2021 </td>
-                                <td>4000</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>ODUJE3453D</td>
-                                <td>Ochieng</td>
-                                <td>13-05-2021</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>NDJE3FR3</td>
-                                <td>Hillary</td>
-                                <td>13-04-2020</td>
-                                <td>1800</td>
-                            </tr>
+                            @forelse ($payments->take(6) as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->reference_code}}</td>
+                                    <td>{{$item->user->name}}</td>
+                                    <td>{{$item->created_at}}</td>
+                                    <td>{{$item->amount}}</td>
+                                </tr>
+                            @empty
+                                <td>No payment records to sh</td>
+                            @endforelse
                         </tbody>
                     </table>
+                    <div class="card">
+                        <div class="body">                            
+                         <a href="{{route('reports.payments')}}" class="btn btn-success btn-sm">View Reports</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row clearfix">
         <div class="col-lg-12">
-
             <div class="card">
                 <div class="header">
                     <h2><strong>Recent</strong> Tests</h2>
@@ -166,7 +154,6 @@
                                 <td>No tests to show</td>
                             @endforelse
                         </tbody>
-                        
                     </table>
                     <div class="card">
                         <div class="body">                            
@@ -175,9 +162,7 @@
                     </div>
                 </div>
             </div>
-          
         </div>
     </div>
 </section>
-
 @endsection
