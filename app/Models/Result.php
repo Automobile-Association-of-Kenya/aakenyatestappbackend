@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Result extends Model
 {
     use HasFactory;
-
+    protected $casts=[
+        'answers'=>'array'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

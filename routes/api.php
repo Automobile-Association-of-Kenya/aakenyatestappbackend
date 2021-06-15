@@ -56,3 +56,5 @@ Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//PDFS
 Route::post('/pdf/read',[MobileRoutesController::class,'pdfreads']);
 
 Route::post('/payments',[MobileRoutesController::class,'payments']);
+Route::post('/mypayments',[MobileRoutesController::class,'mypayments']);
+Route::get('/packages',[MobileRoutesController::class,'packages']);

@@ -180,6 +180,7 @@
                         <li><a href="{{route('pdfs.create')}}">Add PDF</a></li>
                     </ul>
                 </li>
+                <li class="{{(request()->is('packages*')) ? 'active open' : ''}}"><a href="{{route('packages.index')}}"><i class="zmdi zmdi-shopping-cart"></i><span>Payment Packages</span></a></li>
                 <li class="{{(request()->is('reports*')) ? 'active open' : ''}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('reports.users')}}">Registered Users</a></li>

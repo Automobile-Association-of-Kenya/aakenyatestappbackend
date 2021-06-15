@@ -26,7 +26,7 @@ class Topic extends Model
     }
     public function pdfs()
     {
-        
         return $this->hasMany(Pdf::class);
     }
+  
 }

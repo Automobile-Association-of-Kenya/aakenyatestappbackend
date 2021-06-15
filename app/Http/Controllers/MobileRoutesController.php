@@ -15,6 +15,7 @@ use App\Models\Question;
 use App\Models\VideoView;
 use Illuminate\Http\Request;
 use App\Mail\SendVerificationCode;
+use App\Models\Package;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -181,10 +182,11 @@ class MobileRoutesController extends Controller
             'test_id'=>'required',
             'score'=>'required'
         ]);
-
+     
         $result=new Result;
         $result->user_id=$request->user_id;
         $result->test_id=$request->test_id;
+        $result->answers=$request->answers;
         $result->score=$request->score;
         $result->save();
 
@@ -252,6 +254,8 @@ class MobileRoutesController extends Controller
         $payment->user_id=$request->user_id;
         $payment->reference_code=$request->code;
         $payment->amount=$request->amount;
+        $payment->package_id=$request->package_id;
+        $payment->topics=$request->topics;
         $payment->save();
 
         $user=User::findOrFail($request->user_id);
@@ -259,6 +263,14 @@ class MobileRoutesController extends Controller
         $type='payment';
         Notification::send($admins, new SystemNotification($type,$user));
         return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+    }
+    public function mypayments(Request $request)
+    {
+        $user=User::findOrFail($request->user_id);
+
+        $payments=$user->payments;
+       
+        return $this->jsonResponse(false, 'User payments', 'Payments', $payments);
     }
     public function videoviews(Request $request)
     {
@@ -277,6 +289,11 @@ class MobileRoutesController extends Controller
         $read->save();
 
         return $this->jsonResponse(false, 'PDF read', 'read', $read);
+    }
+    public function packages()
+    {
+        $packages=Package::all();
+        return $this->jsonResponse(false, 'Packages', 'package', $packages);
     }
     
 }

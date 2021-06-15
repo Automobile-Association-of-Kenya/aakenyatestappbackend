@@ -13,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MobileRoutesController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReportsController;
 
 /*
@@ -91,6 +92,14 @@ Route::get('/pdfs/{id}/show',[PdfController::class,'show'])->name('pdfs.show');
 Route::get('/pdfs/{id}/edit',[PdfController::class,'edit'])->name('pdfs.edit');
 Route::patch('pdfs/{id}',[PdfController::class,'update'])->name('pdfs.update');
 Route::delete('pdfs/{id}',[PdfController::class,'destroy'])->name('pdfs.destroy');
+
+Route::get('/packages/index',[PackageController::class,'index'])->name('packages.index');
+Route::get('/packages/create',[PackageController::class,'create'])->name('packages.create');
+Route::post('/packages',[PackageController::class,'store'])->name('packages.store');
+Route::get('/packages/{id}/show',[PackageController::class,'show'])->name('packages.show');
+Route::get('/packages/{id}/edit',[PackageController::class,'edit'])->name('packages.edit');
+Route::patch('packages/{id}',[PackageController::class,'update'])->name('packages.update');
+Route::delete('packages/{id}',[PackageController::class,'destroy'])->name('packages.destroy');
 
 Route::get('reports/users',[ReportsController::class,'users'])->name('reports.users');
 Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.tests');

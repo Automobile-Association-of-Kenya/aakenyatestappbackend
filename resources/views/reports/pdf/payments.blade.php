@@ -73,7 +73,8 @@
                     <th>MPESA Code</th>
                     <th>User Name</th>
                     <th>Date</th>
-                    <th>Amount</th>                                    
+                    <th>Amount</th>   
+                    <th>Package</th>                                 
                 </tr>
             </thead>
             <tbody>
@@ -84,6 +85,7 @@
                     <td>{{$item->user->name}}</td>
                     <td>{{$item->created_at}}</td>
                     <td>{{$item->amount}}</td>
+                    <td>{{$item->package->name}}</td>
                 </tr>
                 @empty
                     <td>No payment records to show</td>
