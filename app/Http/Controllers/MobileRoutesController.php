@@ -183,19 +183,19 @@ class MobileRoutesController extends Controller
             'score'=>'required'
         ]);
      
-        $result=new Result;
-        $result->user_id=$request->user_id;
-        $result->test_id=$request->test_id;
-        $result->answers=$request->answers;
-        $result->score=$request->score;
-        $result->save();
+        $score=new Result;
+        $score->user_id=$request->user_id;
+        $score->test_id=$request->test_id;
+        $score->answers=$request->answers;
+        $score->score=$request->score;
+        $score->save();
 
             $user=User::findOrFail($request->user_id);
             $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
             $type='test';
             Notification::send($admins, new SystemNotification($type,$user));
         
-        return $this->jsonResponse(false, 'Results saved','Results', $result);
+        return $this->jsonResponse(false, 'Scores saved','Scores', $score);
     }
     public function results(Request $request)
     {
