@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MobileRoutesController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Login & Register APIs
 Route::post('/login',[MobileRoutesController::class,'login']);
 Route::post('/register',[MobileRoutesController::class,'register']);
-Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
+
 
 //Google sign up
 Route::post('/google',[MobileRoutesController::class,'googlelogin']);
@@ -32,29 +33,36 @@ Route::post('/forgot',[MobileRoutesController::class,'forgot']);
 Route::post('/reset',[MobileRoutesController::class,'reset']);
 Route::post('/verifycode',[MobileRoutesController::class,'verifycode']);
 
-//Topics 
-Route::get('/topics',[MobileRoutesController::class,'topics']);//Get all tests
+Route::group(['middleware'=>['auth:api']],function(){
+//Update profile
+    Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
 
-//Tests
-Route::get('/tests',[MobileRoutesController::class,'tests']);//Get all tests
-Route::get('/topics/tests',[MobileRoutesController::class,'testspertopic']);//Get tests per topic
-Route::get('topic/{id}/tests',[MobileRoutesController::class,'testsinatopic']);//Get tests in a specif topic
+    //Topics 
+    Route::get('/topics',[MobileRoutesController::class,'topics']);//Get all tests
 
-//Grade 
-Route::post('/scores',[MobileRoutesController::class,'scores']);
+    //Tests
+    Route::get('/tests',[MobileRoutesController::class,'tests']);//Get all tests
+    Route::get('/topics/tests',[MobileRoutesController::class,'testspertopic']);//Get tests per topic
+    Route::get('topic/{id}/tests',[MobileRoutesController::class,'testsinatopic']);//Get tests in a specif topic
 
-//Results in a test
-Route::get('/results',[MobileRoutesController::class,'results']);
+    //Grade 
+    Route::post('/scores',[MobileRoutesController::class,'scores']);
 
-//References
-Route::get('/videos',[MobileRoutesController::class,'videos']);//Videos
-Route::get('/video/{id}',[MobileRoutesController::class,'video']);//Videos
-Route::post('/video/view',[MobileRoutesController::class,'videoviews']);
+    //Results in a test
+    Route::get('/results',[MobileRoutesController::class,'results']);
 
-Route::get('/pdfs',[MobileRoutesController::class,'pdfs']);
-Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//PDFS
-Route::post('/pdf/read',[MobileRoutesController::class,'pdfreads']);
+    //References
+    Route::get('/videos',[MobileRoutesController::class,'videos']);//Videos
+    Route::get('/video/{id}',[MobileRoutesController::class,'video']);//Videos
+    Route::post('/video/view',[MobileRoutesController::class,'videoviews']);
 
-Route::post('/payments',[MobileRoutesController::class,'payments']);
-Route::post('/mypayments',[MobileRoutesController::class,'mypayments']);
-Route::get('/packages',[MobileRoutesController::class,'packages']);
+    Route::get('/pdfs',[MobileRoutesController::class,'pdfs']);
+    Route::get('/pdf/{id}',[MobileRoutesController::class,'pdf']);//PDFS
+    Route::post('/pdf/read',[MobileRoutesController::class,'pdfreads']);
+
+    Route::post('/payments',[MobileRoutesController::class,'payments']);
+    Route::post('/mypayments',[MobileRoutesController::class,'mypayments']);
+    Route::get('/packages',[MobileRoutesController::class,'packages']);
+
+    Route::get('/generatetoken',[MobileRoutesController::class,'generatetoken']);
+});

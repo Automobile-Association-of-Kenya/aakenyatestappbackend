@@ -9,13 +9,14 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\Video;
 use App\Models\Result;
+use App\Models\Package;
 use App\Models\Payment;
 use App\Models\PdfRead;
 use App\Models\Question;
 use App\Models\VideoView;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\SendVerificationCode;
-use App\Models\Package;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -42,6 +43,13 @@ class MobileRoutesController extends Controller
 
         if (auth()->guard('web')->attempt(['email' => $request->input('email'), 
             'password' => $request->input('password')])) {
+                if($user->api_token==null)
+                {
+                    $token = Str::random(80);
+                    $user->forceFill([
+                        'api_token' => hash('sha256', $token),
+                    ])->save();
+                }
             $user = auth()->guard('web')->user();
             return $this->jsonResponse(false, 'Successfully logged in', 'user', $user);
         }
@@ -63,11 +71,13 @@ class MobileRoutesController extends Controller
         {
             return $this->jsonResponse(true, 'Invalid credentials', 'Error', $data->messages());
         }
+        $token = Str::random(80);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
+            'api_token' => hash('sha256', $token),
         ]);
             if($user){
                $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
