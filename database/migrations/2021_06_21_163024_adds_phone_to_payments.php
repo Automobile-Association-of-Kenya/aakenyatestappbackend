@@ -15,7 +15,7 @@ class AddsPhoneToPayments extends Migration
     {
         Schema::table('payments', function (Blueprint $table) {
             $table->string('paying_phone_no')->nullable();
-        });
+        }); 
     }
 
     /**
