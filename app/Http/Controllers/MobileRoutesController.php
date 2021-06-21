@@ -268,7 +268,8 @@ class MobileRoutesController extends Controller
         {
             $payment= new Payment;
             $payment->user_id=$request->user_id;
-            $payment->reference_code=$request->$checkoutid;
+            $payment->reference_code=$request->checkoutid;
+            dd($request->checkoutid);
             $payment->amount=$request->amount;
             $payment->package_id=$request->package_id;
             $payment->topics=$request->topics;

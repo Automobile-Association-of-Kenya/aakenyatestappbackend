@@ -14,7 +14,7 @@ class AddsPhoneToPayments extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('paying_phone_no');
+            $table->string('paying_phone_no')->nullable();
         });
     }
 
