@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddApiTokenToUsers extends Migration
+class CreatesCallbacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddApiTokenToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 80)->after('password')
-            ->unique()
-            ->nullable()
-            ->default(null);
+        Schema::create('callbacks', function (Blueprint $table) {
+            $table->string('transaction_id');
+            $table->integer('amount');
+            $table->string('mobile');
+            $table->timestamp('transaction_time');
         });
     }
 
@@ -28,8 +28,6 @@ class AddApiTokenToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('api_token');
-        });
+        //
     }
 }

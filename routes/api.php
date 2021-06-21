@@ -65,4 +65,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::get('/packages',[MobileRoutesController::class,'packages']);
 
     Route::get('/generatetoken',[MobileRoutesController::class,'generatetoken']);
+
+    
 });
+Route::post('/mpesaconfirmation',[MobileRoutesController::class,'mpesaconfirmation']);
