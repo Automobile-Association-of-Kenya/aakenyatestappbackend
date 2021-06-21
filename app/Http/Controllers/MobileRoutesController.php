@@ -261,19 +261,27 @@ class MobileRoutesController extends Controller
     }
     public function payments(Request $request)
     {
-        $payment= new Payment;
-        $payment->user_id=$request->user_id;
-        $payment->reference_code=$request->code;
-        $payment->amount=$request->amount;
-        $payment->package_id=$request->package_id;
-        $payment->topics=$request->topics;
-        $payment->save();
-
-        $user=User::findOrFail($request->user_id);
-        $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
-        $type='payment';
-        Notification::send($admins, new SystemNotification($type,$user));
-        return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+        
+        $checkoutid=MpesaTransaction::where('CheckoutRequestID',$request->checkoutid)->first();
+      
+        if(!$checkoutid==null)
+        {
+            $payment= new Payment;
+            $payment->user_id=$request->user_id;
+            $payment->reference_code=$request->$checkoutid;
+            $payment->amount=$request->amount;
+            $payment->package_id=$request->package_id;
+            $payment->topics=$request->topics;
+            $payment->save();
+            $user=User::findOrFail($request->user_id);
+            $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+            $type='payment';
+            Notification::send($admins, new SystemNotification($type,$user));
+            return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+        }
+        else{
+            return $this->jsonResponse(true, 'Payment not saved', 'Payment', null);
+        }
     }
     public function mypayments(Request $request)
     {
