@@ -263,8 +263,7 @@ class MobileRoutesController extends Controller
     {
         
         $checkoutid=MpesaTransaction::where('CheckoutRequestID',$request->checkoutid)->first();
-      
-        if(!$checkoutid==null)
+        if(!$checkoutid==null && (int)$checkoutid->ResultCode==0)
         {
             $payment= new Payment;
             $payment->user_id=$request->user_id;

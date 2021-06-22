@@ -36,7 +36,6 @@ class CreatesMpesaTransactionsTable extends Migration
      */
     public function down()
     {
-        
         Schema::dropIfExists('mpesa_transactions');
     }
 }
