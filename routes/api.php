@@ -33,7 +33,7 @@ Route::post('/forgot',[MobileRoutesController::class,'forgot']);
 Route::post('/reset',[MobileRoutesController::class,'reset']);
 Route::post('/verifycode',[MobileRoutesController::class,'verifycode']);
 
-Route::group(['middleware'=>['auth:api']],function(){
+Route::group(['middleware'=>['auth:sanctum']],function(){
 //Update profile
     Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
 
@@ -65,6 +65,7 @@ Route::group(['middleware'=>['auth:api']],function(){
     Route::post('/packages',[MobileRoutesController::class,'packages']);
 
     Route::post('/generatetoken',[MobileRoutesController::class,'generatetoken']);
+    Route::post('/logout',[MobileRoutesController::class,'logout']);
 
 });
 

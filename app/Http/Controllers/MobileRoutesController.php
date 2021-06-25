@@ -48,10 +48,18 @@ class MobileRoutesController extends Controller
                 {
                     $token = Str::random(80);
                     $user->forceFill([
-                        'api_token' => hash('sha256', $token),
+                        'api_token' =>  $token,
                     ])->save();
                 }
+                
             $user = auth()->guard('web')->user();
+            $random = Str::random(40);
+            $token=$user->createToken($random)->plainTextToken;
+            $user=[
+                'user'=>$user,
+                'token'=>$token
+            ];
+       
             return $this->jsonResponse(false, 'Successfully logged in', 'user', $user);
         }
         return $this->jsonResponse(true, 'Either the username or password is incorrect', 
@@ -72,18 +80,26 @@ class MobileRoutesController extends Controller
         {
             return $this->jsonResponse(true, 'Invalid credentials', 'Error', $data->messages());
         }
-        $token = Str::random(80);
+     
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'api_token' => hash('sha256', $token),
+     
         ]);
+       
             if($user){
+                $random = Str::random(40);
+                $token=$user->createToken($random)->plainTextToken;
+              
                $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
                $type='register';
                Notification::send($admins, new SystemNotification($type,$user));
+               $user=[
+                'user'=>$user,
+                'token'=>$token
+            ];
                 return $this->jsonResponse(false, 'User registered successfully', 'user', $user);
             }
             else{
@@ -353,59 +369,11 @@ class MobileRoutesController extends Controller
       
         return json_encode(["C2BPaymentConfirmationResult" => "Success"]);
     }
-    public function callback()
+   
+    public function logout()
     {
-        $response = file_get_contents("php://input");
-       // print_r($response);
-		$logFile = "callBack.txt";
-		$log = fopen($logFile, "a");
-		fwrite($log, $response);
-		fclose($log);
+        auth()->user()->tokens()->delete();
 
-		$dec = html_entity_decode($response);
-		$stkCallbackResponse = json_decode($dec);
-		$body = $stkCallbackResponse->Body;
-
-		$stkCallBack = $body->stkCallback;
-		$resultCode = $stkCallBack->ResultCode;
-		$callBackMetaData = $stkCallBack->CallbackMetadata;
-		$items = $callBackMetaData->Item;
-		$array_size = sizeof($items);
-		$amount = 0;
-		$receipt = '';
-		$transactionTime = '';
-		$phone_number = '';
-		if ($array_size == 5) {
-			$amount = $items[0]->Value;
-			$receipt = $items[1]->Value;
-			$transactionTime = $items[3]->Value;
-			$phone_number = $items[4]->Value;
-		} elseif ($array_size == 4) {
-			$amount = $items[0]->Value;
-			$receipt = $items[1]->Value;
-			$transactionTime = $items[2]->Value;
-			$phone_number = $items[3]->Value;
-		}
-		if ($resultCode == 0) {
-			/*1. Inserrt to callbacks*/
-            DB::raw("INSERT INTO callbacks (transaction_id,amount,mobile,transaction_time) VALUES ('".$receipt."','".$amount."','".$phone_number."', '".$transactionTime."')");
-				
-         $regex_254= "^254[0-9]^";
-         $regex_plus_254= "^+254[0-9]^";
-        $formatted_mobile ="";
-       // echo $mobile;
-        if ((preg_match($regex_254,$phone_number))){
-              $sub_mobile = substr($phone_number, 3);
-             $formatted_mobile = '0' . $sub_mobile;
-         }elseif((preg_match($regex_plus_254,$phone_number))){
-         	 $sub_mobile = substr($phone_number, 4);
-             $formatted_mobile = '0' . $sub_mobile;
-         }
-         $phone_number = $formatted_mobile;
-			/*Update payments*/
-            DB::raw("UPDATE payments SET reference_code= '".$receipt."' WHERE paying_phone_no = '".$phone_number."' ORDER BY ID DESC LIMIT 1 ");
-		} else {
-		
-		}
+        return $this->jsonResponse(false, 'Logged Out', 'User', null);
     }
 }
