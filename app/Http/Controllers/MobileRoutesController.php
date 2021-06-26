@@ -255,6 +255,10 @@ class MobileRoutesController extends Controller
             $user->password='google';
             $user->save();
         }
+        $random = Str::random(40);
+        $token=array('token'=>$user->createToken($random)->plainTextToken);
+        $user=$user->toArray();
+        $user=array_merge($user,$token);
 
     return $this->jsonResponse(false, 'Authentication successful','user', $user);
     }
