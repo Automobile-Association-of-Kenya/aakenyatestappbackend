@@ -54,11 +54,13 @@ class MobileRoutesController extends Controller
                 
             $user = auth()->guard('web')->user();
             $random = Str::random(40);
-            $token=$user->createToken($random)->plainTextToken;
-            $user=[
-                'user'=>$user,
-                'token'=>$token
-            ];
+            $token=array('token'=>$user->createToken($random)->plainTextToken);
+            $user=$user->toArray();
+            $user=array_merge($user,$token);
+            // [
+            //     'user'=>$user,
+            //     'token'=>$token
+            // ];
        
             return $this->jsonResponse(false, 'Successfully logged in', 'user', $user);
         }
@@ -90,16 +92,17 @@ class MobileRoutesController extends Controller
         ]);
        
             if($user){
-                $random = Str::random(40);
-                $token=$user->createToken($random)->plainTextToken;
+              
+                
               
                $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
                $type='register';
                Notification::send($admins, new SystemNotification($type,$user));
-               $user=[
-                'user'=>$user,
-                'token'=>$token
-            ];
+               
+                $random = Str::random(40);
+                $token=array('token'=>$user->createToken($random)->plainTextToken);
+                $user=$user->toArray();
+                $user=array_merge($user,$token);
                 return $this->jsonResponse(false, 'User registered successfully', 'user', $user);
             }
             else{
