@@ -290,7 +290,7 @@ class MobileRoutesController extends Controller
         {
             $payment= new Payment;
             $payment->user_id=$request->user_id;
-            $payment->reference_code=$request->checkoutid;
+            $payment->reference_code=$checkoutid->MpesaReceiptNumber;
             $payment->amount=$request->amount;
             $payment->package_id=$request->package_id;
             $payment->topics=$request->topics;
@@ -349,6 +349,7 @@ class MobileRoutesController extends Controller
         $mpesa_transaction->ResultCode = $callback->ResultCode;
         $mpesa_transaction->ResultDesc = $callback->ResultDesc;
         //
+        dd($mpesa_transaction->ResultCode);
         if ($mpesa_transaction->ResultCode == 0) {
             $array = $callback->CallbackMetadata->Item;
            // dd($array);
