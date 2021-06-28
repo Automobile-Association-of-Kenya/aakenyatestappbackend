@@ -1,6 +1,7 @@
+
 @extends('layouts.main')
 @section('title')
-    <title>Tests</title>
+    <title>Payments</title>
 @endsection
 @section('content')
 <section class="content">
@@ -8,11 +9,11 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Tests List</h2>
+                    <h2>Payments</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="zmdi zmdi-home"></i> AAK</a></li>
                     
-                        <li class="breadcrumb-item active">Tests List</li>
+                        <li class="breadcrumb-item active">Payments</li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
@@ -25,44 +26,32 @@
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
-                        <a href="{{route('tests.create')}}" class="btn btn-success btn-md float-right" type="button">Add Test</a>
+                        <a href="{{route('payments.create')}}" class="btn btn-success btn-md float-right" type="button">Add Payment</a>
                         <div class="table-responsive">
-                            <table class="table table-hover product_item_list c_table theme-color mb-0">
+                            <table class="table table-hover c_table">
                                 <thead>
                                     <tr>
-                                        
-                                        <th data-breakpoints="sm xs">Code</th>
-                                        <th data-breakpoints="sm xs">Title</th>
-                                        <th data-breakpoints="xs">No of Questions</th>
-                                        <th data-breakpoints="xs">Added By:</th>
-                                        <th data-breakpoints="sm xs md">Action</th>
+                                        <th style="width:60px;">#</th>
+                                        <th>MPESA Code</th>
+                                        <th>User Name</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>   
+                                        <th>Package</th>                                 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{session('success')}}
-                                    </div>
-                                    @endif
-                                    @if ($errors->any())
-                                        @foreach ($errors->all() as $item)
-                                            {{$item}}<br>
-                                        @endforeach
-                                    @endif
-                                    @forelse ($tests as $item)
+                                    @forelse ($payments as $item)
                                     <tr>
-                                        <input type="hidden" class="delete_value_id" value="{{$item->id}}">
-                                        <td><h5>{{$item->code}}</h5></td>
-                                        <td><h5>{{$item->title}}</h5></td>
-                                        <td><span class="text-muted">{{$item->questions->count()}}</span></td>
-                                        <td>{{$item->user}}</td>
-                                        <td>
-                                            <a href="{{route('tests.edit',$item->id)}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <button type="button"  class="btn btn-default waves-effect waves-float btn-sm waves-red topicdelete"><i class="zmdi zmdi-delete"></i></button>  
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->reference_code}}</td>
+                                        <td>{{$item->user->name}}</td>
+                                        <td>{{$item->created_at}}</td>
+                                        <td>{{$item->amount}}</td>
+                                        <td>{{$item->package->name}}</td>
                                     </tr>
                                     @empty
-                                        <td>No tests to show</td>
-                                    @endforelse      
+                                        <td>No payment records to show</td>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -70,7 +59,7 @@
                     <div class="card">
                         <div class="body">                            
                             <ul class="pagination pagination-primary m-b-0">
-                                {{$tests->links()}}
+                                {{$payments->links()}}
                             </ul>
                         </div>
                     </div>

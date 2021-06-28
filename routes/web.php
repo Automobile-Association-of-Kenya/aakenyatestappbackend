@@ -9,12 +9,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EssayController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MobileRoutesController;
 use App\Http\Controllers\NotificationsController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,10 @@ Route::get('/packages/{id}/show',[PackageController::class,'show'])->name('packa
 Route::get('/packages/{id}/edit',[PackageController::class,'edit'])->name('packages.edit');
 Route::patch('packages/{id}',[PackageController::class,'update'])->name('packages.update');
 Route::delete('packages/{id}',[PackageController::class,'destroy'])->name('packages.destroy');
+
+Route::get('/payments/index',[PaymentController::class,'index'])->name('payments.index');
+Route::get('/payments/create',[PaymentController::class,'create'])->name('payments.create');
+Route::post('/payments',[PaymentController::class,'store'])->name('payments.store');
 
 Route::get('reports/users',[ReportsController::class,'users'])->name('reports.users');
 Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.tests');
