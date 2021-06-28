@@ -349,7 +349,7 @@ class MobileRoutesController extends Controller
         $mpesa_transaction->ResultCode = $callback->ResultCode;
         $mpesa_transaction->ResultDesc = $callback->ResultDesc;
         //
-        dd($mpesa_transaction->ResultCode);
+       
         if ($mpesa_transaction->ResultCode == 0) {
             $array = $callback->CallbackMetadata->Item;
            // dd($array);
