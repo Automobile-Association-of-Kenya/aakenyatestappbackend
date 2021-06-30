@@ -162,45 +162,45 @@ function MorrisArea() {
             
             element: 'area_chart',
             data: [{
-                m: '{{$data[0]}}',
+                r: '{{$data[0]}}',
                 Revenue: {{$paymentmcount[0]}},
             }, {
-                m: '{{$data[1]}}',
+                r: '{{$data[1]}}',
                 Revenue: {{$paymentmcount[1]}},
             }, {
-                m: '{{$data[2]}}',
+                r: '{{$data[2]}}',
                 Revenue: {{$paymentmcount[2]}},
             }, {
-                m: '{{$data[3]}}',
+                r: '{{$data[3]}}',
                 Revenue: {{$paymentmcount[3]}},
             }, {
-                m: '{{$data[4]}}',
+                r: '{{$data[4]}}',
                 Revenue: {{$paymentmcount[4]}},
             }, {
-                m: '{{$data[5]}}',
+                r: '{{$data[5]}}',
                 Revenue: {{$paymentmcount[5]}},
             }, {
-                m: '{{$data[6]}}',
+                r: '{{$data[6]}}',
                 Revenue: {{$paymentmcount[6]}},
             }, {
-                m: '{{$data[7]}}',
+                r: '{{$data[7]}}',
                 Revenue: {{$paymentmcount[7]}},
             }, {
-                m: '{{$data[8]}}',
+                r: '{{$data[8]}}',
                 Revenue: {{$paymentmcount[8]}},
             }, {
-                m: '{{$data[9]}}',
+                r: '{{$data[9]}}',
                 Revenue: {{$paymentmcount[9]}},
             }, {
-                m: '{{$data[10]}}',
+                r: '{{$data[10]}}',
                 Revenue: {{$paymentmcount[10]}},
             }, {
-                m: '{{$data[11]}}',
+                r: '{{$data[11]}}',
                 Revenue: {{$paymentmcount[11]}},
             }
         ],
         lineColors: ['#00ced1'],
-        xkey: 'm',
+        xkey: 'r',
         ykeys: ['Revenue'],
         labels: [ 'Revenue'],
         pointSize: 0,

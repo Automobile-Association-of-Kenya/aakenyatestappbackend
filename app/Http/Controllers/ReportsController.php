@@ -35,7 +35,7 @@ class ReportsController extends Controller
             $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->paginate(6);
         }
       
-        $period = now()->subMonths(11)->monthsUntil(now());
+        $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
         $data = [];
         foreach ($period as $date)
         {
@@ -112,7 +112,7 @@ class ReportsController extends Controller
        $current_year=Payment::whereYear('created_at',date('Y'))->sum('amount');
        $total=Payment::all()->sum('amount');
 
-        $period = now()->subMonths(11)->monthsUntil(now());
+        $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
         $data = [];
         foreach ($period as $date)
         {
