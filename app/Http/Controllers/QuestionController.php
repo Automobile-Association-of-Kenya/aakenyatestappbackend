@@ -161,7 +161,7 @@ class QuestionController extends Controller
         if($request->has('image'))
         {
             $request->validate([
-                'thumbnail'=>'mimes:jpeg,jpg,png,gif'
+                'thumbnail'=>'mimes:jpeg,jpg,png,gif,svg'
             ]);
             $image=$request->image;
             $img=Image::make($image);
@@ -346,7 +346,7 @@ class QuestionController extends Controller
         if($request->has('image'))
         {
             $request->validate([
-                'thumbnail'=>'mimes:jpeg,jpg,png,gif'
+                'thumbnail'=>'mimes:jpeg,jpg,png,gif,svg'
             ]);
             $image=$request->image;
             $img=Image::make($image);

@@ -57,7 +57,7 @@ class HomeController extends Controller
         if($request->has('image'))
         {
             $request->validate([
-                'image'=>'required|mimes:jpeg,jpg,png,gif'
+                'image'=>'required|mimes:jpeg,jpg,png,gif,svg'
             ]);
             $photo=$request->image;
             $img=Image::make($photo);

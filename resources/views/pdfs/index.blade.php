@@ -58,6 +58,7 @@
                                                     </div>
                                                     <div class="file-name">
                                                         <p class="m-b-5 text-muted">{{$item->title}}</p>
+                                                       
                                                         <small>Topic: <span class="text-muted">{{$item->topic->title}}</span></small>
                                                     </div>
                                             </div>
