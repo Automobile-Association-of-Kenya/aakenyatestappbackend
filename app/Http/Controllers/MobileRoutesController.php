@@ -286,20 +286,31 @@ class MobileRoutesController extends Controller
     {
         
         $checkoutid=MpesaTransaction::where('CheckoutRequestID',$request->checkoutid)->first();
+       
         if(!$checkoutid==null && (int)$checkoutid->ResultCode==0)
         {
-            $payment= new Payment;
-            $payment->user_id=$request->user_id;
-            $payment->reference_code=$checkoutid->MpesaReceiptNumber;
-            $payment->amount=$request->amount;
-            $payment->package_id=$request->package_id;
-            $payment->topics=$request->topics;
-            $payment->save();
-            $user=User::findOrFail($request->user_id);
-            $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
-            $type='payment';
-            Notification::send($admins, new SystemNotification($type,$user));
-            return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+            $payment= Payment::where('reference_code',$checkoutid->MpesaReceiptNumber)->first();
+
+            if($payment!=null)
+            {
+                return $this->jsonResponse(false, 'Payment record already exists', 'Payment', $payment);
+            }
+            else{
+                $payment= new Payment;
+                $payment->user_id=$request->user_id;
+                $payment->reference_code=$checkoutid->MpesaReceiptNumber;
+                $payment->amount=$request->amount;
+                $payment->package_id=$request->package_id;
+                $payment->topics=$request->topics;
+                $payment->save();
+                $user=User::findOrFail($request->user_id);
+                $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
+                $type='payment';
+                Notification::send($admins, new SystemNotification($type,$user));
+                return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
+            }
+
+           
         }
         else{
             return $this->jsonResponse(true, 'Payment not saved', 'Payment', null);

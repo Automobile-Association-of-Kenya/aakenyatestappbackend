@@ -17,7 +17,7 @@ class Test extends Model
     }
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(Topic::class)->withTrashed();
     }
     public function results()
     {

@@ -6,7 +6,7 @@ use App\Models\Test;
 use App\Models\Topic;
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class QuestionController extends Controller
 {
@@ -44,6 +44,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+       
          $request->validate([
              'question'=>'string|required',
              'marks'=>'integer|required'
@@ -164,12 +165,16 @@ class QuestionController extends Controller
                 'thumbnail'=>'mimes:jpeg,jpg,png,gif,svg'
             ]);
             $image=$request->image;
-            $img=Image::make($image);
-            $img->resize(300,null);
+        
             $imageName=time()."_.".$image->getClientOriginalExtension();
-            $img->save(public_path("Images/".$imageName));
-           
+
+            Image::configure(array('driver' => 'imagick'));
+            $image = Image::make($image->getRealPath())->resize(300, 200);
+          
+            $image->save(public_path("Images/".$imageName),90);
+            
             $question->photo=$imageName;
+           
         }
         $question->save();
         return redirect()->route('tests.edit',$question->test_id)->with('success','Question added successfully');
@@ -349,11 +354,14 @@ class QuestionController extends Controller
                 'thumbnail'=>'mimes:jpeg,jpg,png,gif,svg'
             ]);
             $image=$request->image;
-            $img=Image::make($image);
-            $img->resize(300,null);
+        
             $imageName=time()."_.".$image->getClientOriginalExtension();
-            $img->save(public_path("Images/".$imageName));
-           
+
+            Image::configure(array('driver' => 'imagick'));
+            $image = Image::make($image->getRealPath())->resize(300, 200);
+          
+            $image->save(public_path("Images/".$imageName),90);
+            
             $question->photo=$imageName;
         }
         $question->save();
