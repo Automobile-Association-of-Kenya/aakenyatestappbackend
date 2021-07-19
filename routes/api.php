@@ -53,8 +53,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     //References
     Route::post('/videos',[MobileRoutesController::class,'videos']);//Videos
-    Route::post('/video/{id}',[MobileRoutesController::class,'video']);//Videos
+   
     Route::post('/video/view',[MobileRoutesController::class,'videoviews']);
+    Route::post('/video/{id}',[MobileRoutesController::class,'video']);//Videos
 
     Route::post('/pdfs',[MobileRoutesController::class,'pdfs']);
     Route::post('/pdf/{id}',[MobileRoutesController::class,'pdf']);//PDFS

@@ -45,6 +45,13 @@
                                 <div class="form-group form-float">
                                     <input type="text" class="form-control" placeholder="Description" name="description" >
                                 </div>
+                                <div class="form-group form-float">
+                                    <select class="form-control show-tick ms select2" name="free" >
+                                        <option value="0">Select</option>
+                                        <option value="1">Free</option>
+                                        <option value="2">Paid</option>
+                                    </select>
+                                </div>
                                 <button class="btn btn-primary" type="submit" >Create</button>
                     
                             </form>

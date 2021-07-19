@@ -43,15 +43,23 @@ class TopicController extends Controller
     {
         $request->validate([
             'title'=>'required|string|unique:topics',
-            'description'=>'required|string'
+            'description'=>'required|string',
+            
         ]);
-
+    
+        if($request->free==0)
+        {
+            return redirect()->back()->withErrors('Please select whether the topic is free or paid');
+        }
         $topic=new Topic;
         $topic->title=$request->title;
         $topic->description=$request->description;
         $topic->user=Auth::user()->name;
+        if($request->free==2)
+        {
+            $topic->free=True;
+        }
         $topic->save();
-
         return redirect()->route('topics.index')->with('success','Topic added successfully');
     }
 
@@ -94,6 +102,18 @@ class TopicController extends Controller
         $topic=Topic::findOrFail($id);
         $topic->title=$request->title;
         $topic->description=$request->description;
+        if($request->free==0)
+        {
+            return redirect()->back()->withErrors('Please select whether the topic is free or paid');
+        }
+        else if($request->free==2)
+        {
+            $topic->free=True;
+        }
+        else if($request->free==1)
+        {
+            $topic->free=False;
+        }
         $topic->save();
 
         return redirect()->route('topics.index')->with('success','Test updated successfully');
