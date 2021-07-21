@@ -55,7 +55,12 @@ class TopicController extends Controller
         $topic->title=$request->title;
         $topic->description=$request->description;
         $topic->user=Auth::user()->name;
-        if($request->free==2)
+        $topic->free=True;
+        if($request->free==1)
+        {
+            $topic->free=True;
+        }
+        else if($request->free==2)
         {
             $topic->free=False;
         }
