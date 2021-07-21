@@ -51,7 +51,7 @@
                                     @forelse ($topics as $item)
                                         <tr>
                                             <input type="hidden" class="delete_value_id" value="{{$item->id}}">
-                                            <td><h5>{{$item->title}}</h5></td>
+                                            <td><h5>{{$item->title}}<span class="badge {{$item->free==true ? 'badge-primary':'badge-danger'}} ml-2">{{$item->free==true ? 'Free': 'Paid'}}</span></h5></td>
                                             <td><span class="text-muted">{{Str::limit($item->description,60)}}</span></td>
                                             <td>{{$item->user}}</td>
                                             <td>

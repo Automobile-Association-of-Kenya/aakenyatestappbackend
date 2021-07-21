@@ -57,7 +57,7 @@ class TopicController extends Controller
         $topic->user=Auth::user()->name;
         if($request->free==2)
         {
-            $topic->free=True;
+            $topic->free=False;
         }
         $topic->save();
         return redirect()->route('topics.index')->with('success','Topic added successfully');
@@ -108,11 +108,11 @@ class TopicController extends Controller
         }
         else if($request->free==2)
         {
-            $topic->free=True;
+            $topic->free=False;
         }
         else if($request->free==1)
         {
-            $topic->free=False;
+            $topic->free=True;
         }
         $topic->save();
 
