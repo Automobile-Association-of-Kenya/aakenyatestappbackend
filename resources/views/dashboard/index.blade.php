@@ -95,16 +95,18 @@
                                 <th style="width:60px;">#</th>
                                 <th>MPESA Code</th>
                                 <th>User Name</th>
+                                <th>Phone Number</th>
                                 <th>Date</th>
                                 <th>Amount</th>                                    
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($payments->take(6) as $item)
+                            @forelse ($payments->take(10) as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->reference_code}}</td>
-                                    <td>{{$item->user->name}}</td>
+                                    <td>{{$item->user!=null ? $item->user->name : 'No name'}}</td>
+                                    <td>{{$item->paying_phone_no}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->amount}}</td>
                                 </tr>
@@ -144,7 +146,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($tests-> take(5) as $item)
+                            @forelse ($tests-> take(10) as $item)
                             <tr>
                                 <td><h5>{{$item->topic->title}}</h5></td>
                                 <td><span class="text-muted">{{$item->title}}</span></td>

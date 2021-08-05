@@ -40,6 +40,7 @@ Route::get('/fallback',function()
 })->name('fallback');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('adminonly');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 Route::get('settings/profile/{id}', [HomeController::class, 'profile'])->name('profile');
 Route::post('settings/profile/{id}', [HomeController::class, 'update'])->name('profile.update');
 Route::get('settings/password',[HomeController::class,'password'])->name('password');

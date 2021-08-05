@@ -140,13 +140,13 @@
     </div>
     
     <!-- Left Sidebar -->
-    <aside id="leftsidebar" class="sidebar">
+    <aside id="leftsidebar" class="sidebar" >
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
             <a href="/home"><img src="{{asset('assets/images/logo.jpg')}}" width="25" alt=""><span class="m-l-10">AA Kenya</span></a>
         </div>
-        <div class="menu">
-            <ul class="list">
+        <div class="menu" >
+            <ul class="list" style="overflow: scroll">
                 <li>
                     <div class="user-info">
                         @if (Auth::user()->photo==null)
@@ -202,6 +202,7 @@
                         @endcan
                         <li><a href="{{route('profile',Auth::user()->id)}}">Update Profile</a></li>
                         <li><a href="{{route('password')}}">Change Password</a></li>
+                        <li><a href="{{route('privacy')}}">Privacy Policy</a></li>
                         <li class="mr-0" style="margin-left: -2%"><button type="submit" form="logout" class="bg-transparent border-0 m-0" title="Sign Out"><a>Logout</a></button></li>
                         <form id="logout" action="{{route('logout')}}" method="post">@csrf</form>
                     </ul>

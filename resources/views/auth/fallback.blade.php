@@ -32,6 +32,9 @@
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
+                            <div class="signin_with mt-3">
+                                <a class="link" href="https://aadrivingtest.co.ke/app-release.apk"><i class="zmdi zmdi-smartphone-download mr-1"></i>Download Driving Test App</a>
+                            </div>
                         @endif
                      
                     </div>
@@ -45,6 +48,9 @@
             <div class="col-lg-8 col-sm-12 ">
                 <div class="card">
                     <img src="{{asset('assets/images/splash.jpg')}}" width="60%" style="margin-left:25%;" alt="Sign In"/>
+                </div>
+                <div class="signin_with mt-3">
+                    <a class="link" href="https://aadrivingtest.co.ke/app-release.apk"><i class="zmdi zmdi-smartphone-download mr-1"></i>Download Driving Test App</a>
                 </div>
             </div>
         </div>

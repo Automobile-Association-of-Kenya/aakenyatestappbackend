@@ -57,14 +57,10 @@ class MobileRoutesController extends Controller
             $token=array('token'=>$user->createToken($random)->plainTextToken);
             $user=$user->toArray();
             $user=array_merge($user,$token);
-            // [
-            //     'user'=>$user,
-            //     'token'=>$token
-            // ];
-       
+           
             return $this->jsonResponse(false, 'Successfully logged in', 'user', $user);
         }
-        return $this->jsonResponse(true, 'Either the username or password is incorrect', 
+        return $this->jsonResponse(true, 'return response()->json(["status"=>200,"message"=>"Login successful"]);', 
             'user', null);
     }
 
@@ -75,7 +71,7 @@ class MobileRoutesController extends Controller
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone'=>['']
+            'phone'=>['numeric']
         ]);
        
         if($data->fails())
@@ -302,7 +298,9 @@ class MobileRoutesController extends Controller
                 $payment->amount=$request->amount;
                 $payment->package_id=$request->package_id;
                 $payment->topics=$request->topics;
+                $payment->paying_phone_no=$checkoutid->PhoneNumber;
                 $payment->save();
+                
                 $user=User::findOrFail($request->user_id);
                 $admins=User::where('role_id',0)->orWhere('role_id',1)->get();
                 $type='payment';

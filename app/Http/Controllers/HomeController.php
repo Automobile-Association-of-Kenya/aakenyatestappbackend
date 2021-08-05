@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('privacy');
     }
 
     /**
@@ -86,6 +86,16 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->back()->with('success','Password changed successfully');
+    }
+    public function privacy()
+    {
+        If(Auth::check())
+        {
+            return view('dashboard.privacy');
+        }
+        else{
+            return view('dashboard.privacy2');
+        }
     }
 }
 

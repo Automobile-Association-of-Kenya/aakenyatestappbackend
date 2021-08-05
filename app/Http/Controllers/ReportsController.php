@@ -29,10 +29,10 @@ class ReportsController extends Controller
         $users=null;
         if($to==null||$from==null)
         {
-            $users=User::where('role_id',2)->paginate(6);
+            $users=User::where('role_id',2)->orderBy('created_at','DESC')->paginate(10);;
         }
         else{
-            $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->paginate(6);
+            $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
         }
       
         $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
@@ -83,13 +83,13 @@ class ReportsController extends Controller
         $all_tests=null;
         if($to==null||$from==null)
         {
-            $all_tests=Test::paginate(6);
+            $all_tests=Test::orderBy('created_at','DESC')->paginate(10);;
             
         }
         else{
-            $all_tests=Test::whereBetween('created_at',[$from,$to])->paginate(6);
+            $all_tests=Test::whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
         }
-        $tests=Test::paginate(6);
+        $tests=Test::orderBy('created_at','DESC')->paginate(10);
         $results=Result::all();
         return view('reports.tests',compact('all_tests','tests','results','to','from'));
     }
@@ -101,11 +101,11 @@ class ReportsController extends Controller
         $payments=null;
         if($to==null||$from==null)
         {
-            $payments=Payment::paginate(6);
+            $payments=Payment::orderBy('created_at','DESC')->paginate(10);;
             
         }
         else{
-            $payments=Payment::whereBetween('created_at',[$from,$to])->paginate(6);
+            $payments=Payment::whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
         }
        
         $current_month= Payment::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('amount');
@@ -159,11 +159,11 @@ class ReportsController extends Controller
         $videos=null;
         if($to==null||$from==null)
         {
-            $videos=Video::paginate(6);
+            $videos=Video::orderBy('created_at','DESC')->paginate(10);;
             
         }
         else{
-            $videos=Video::whereBetween('created_at',[$from,$to])->paginate(6);
+            $videos=Video::whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
         }
         $df = disk_free_space("/");
         //dd($df/1048576);
@@ -186,11 +186,11 @@ class ReportsController extends Controller
         $pdfs=null;
         if($to==null||$from==null)
         {
-            $pdfs=PDFM::paginate(6);
+            $pdfs=PDFM::orderBy('created_at','DESC')->paginate(10);;
             
         }
         else{
-            $pdfs=PDFM::whereBetween('created_at',[$from,$to])->paginate(6);
+            $pdfs=PDFM::whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
         }
         $df = disk_free_space("/");
         //dd($df/1048576);
