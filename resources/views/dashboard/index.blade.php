@@ -106,7 +106,7 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->reference_code}}</td>
                                     <td>{{$item->user!=null ? $item->user->name : 'No name'}}</td>
-                                    <td>{{$item->paying_phone_no}}</td>
+                                    <td>{{$item->paying_phone_no !=null ? $item->paying_phone_no : $item->user->phone}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->amount}}</td>
                                 </tr>
