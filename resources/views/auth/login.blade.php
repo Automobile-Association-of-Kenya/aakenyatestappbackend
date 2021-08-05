@@ -8,11 +8,11 @@
 
 <div class="authentication">
     <div class="container">
-        <h4>AA Kenya Driving Test Portal</h4>
+     
         <div class="row">
             
             <div class="col-lg-4 col-sm-12">
-               
+                <h4>AA Kenya Driving Test Portal</h4>
                 <form class="card auth_form" action="{{route('login')}}" method="POST">
                     <div class="header">
                         <img class="logo" src="assets/images/logo.jpg" alt="">
@@ -55,12 +55,12 @@
                     <span><a href="/">AA Kenya</a></span>
                 </div>
             </div>
-            <div class="col-lg-8 col-sm-12 mb-5">
-                <div class="signin_with pb-3">
-                    <a class="link" href="https://aadrivingtest.co.ke/aak-driving-test-app.apk"><i class="zmdi zmdi-smartphone-download mr-1"></i>Download Driving Test App</a>
+            <div class="col-lg-8 col-sm-12 ">
+                <div class="signin_with ml-5">
+                    <a class=" link card auth_form border border-success bg-success text-white w-75" href="https://aadrivingtest.co.ke/aak-driving-test-app.apk"><span class=" h5">Driving Test App<img src="assets/images/playstore.png" class="ml-2" width="30%" alt="Sign In"/></span></a>
                 </div>
                 <div class="card">
-                    <img src="assets/images/splash.jpg" width="60%" style="margin-left:25%;" alt="Sign In"/>
+                    <img src="assets/images/splash.jpg" width="70%" style="margin-left:18%;" alt="Sign In"/>
                 </div>
             </div>
         </div>
