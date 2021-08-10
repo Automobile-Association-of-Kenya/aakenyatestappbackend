@@ -42,7 +42,7 @@
                         <a href="{{route('today.payments')}}">
                             <div class="card">
                                 <div class="body xl-green">
-                                    <h4 class="mt-0 mb-0"  style="color: rgb(5,95,67)">Kshs {{number_format($today_payments->sum('amount'),2,'.',',')}}</h4>
+                                    <h4 class="mt-0 mb-0"  style="color: rgb(5,95,67)">Kshs {{number_format($today_payments->sum('amount'))}}</h4>
                                     <p class="mb-0 "  style="color: rgb(5,95,67)">Revenue Today</p>
                                     <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                                     data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
@@ -95,7 +95,7 @@
                     <a href="{{route('reports.payments')}}">
                         <div class="card">
                             <div class="body xl-pink">
-                                <h4 class="mt-0 mb-0">Kshs {{number_format($payments->sum('amount'),2,'.',',')}}</h4>
+                                <h4 class="mt-0 mb-0">Kshs {{number_format($payments->sum('amount'))}}</h4>
                                 <p class="mb-0"> Total Revenue</p>
                                 <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                                 data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
