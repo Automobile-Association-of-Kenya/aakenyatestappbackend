@@ -27,18 +27,6 @@
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
-                        <div class="body xl-blue">
-                            <h4 class="mt-0 mb-0"  style="color: #055f43">{{$users->count()}}</h4>
-                            <p class="mb-0" style="color: rgb(5,95,67)">Total Users</p>                        
-                            <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
-                            data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
-                            data-offset="90" data-width="100%" data-height="40px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
-                            data-fill-Color="transparent"> 7,6,7,8,5,9,8,6,7 </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
                         <div class="body xl-purple">
                             <h4 class="mt-0 mb-0">{{$users->whereDate('created_at',today())->count()}}</h4>
                             <p class="mb-0 ">Users Registered Today</p>                        
@@ -80,9 +68,35 @@
                 <div class="col-lg-3 col-md-6">
                     <a href="{{route('today.payments')}}">
                         <div class="card">
+                            <div class="body xl-green">
+                                <h4 class="mt-0 mb-0" style="color: #055f43">{{$today_payments->count()}}</h4>
+                                <p class="mb-0" style="color: #055f43">Number of Payments Today</p>
+                                <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
+                                data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
+                                data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
+                                data-fill-Color="transparent"> 7,6,7,8,5,9,8,6,7 </div>
+                            </div>                        
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body xl-blue">
+                            <h4 class="mt-0 mb-0"  style="color: #055f43">{{$users->count()}}</h4>
+                            <p class="mb-0" style="color: rgb(5,95,67)">Total Users</p>                        
+                            <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
+                            data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
+                            data-offset="90" data-width="100%" data-height="40px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
+                            data-fill-Color="transparent"> 7,6,7,8,5,9,8,6,7 </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{{route('reports.payments')}}">
+                        <div class="card">
                             <div class="body xl-pink">
-                                <h4 class="mt-0 mb-0">{{$today_payments->count()}}</h4>
-                                <p class="mb-0">Number of Payments Today</p>
+                                <h4 class="mt-0 mb-0">Kshs {{$payments->sum('amount')}}</h4>
+                                <p class="mb-0"> Total Revenue</p>
                                 <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                                 data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
                                 data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="#FFFFFF"
@@ -92,16 +106,32 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="body xl-green">
-                            <h4 class="mt-0 mb-0"  style="color: rgb(5,95,67)">{{$total_attempts}}</h4>
-                            <p class="mb-0 "  style="color: rgb(5,95,67)">Total Number of Test Attempts</p>
-                            <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
-                            data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
-                            data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
-                            data-fill-Color="transparent"> 8,7,7,5,5,4,8,7,5 </div>
+                    <a href="{{route('reports.tests')}}">
+                        <div class="card">
+                            <div class="body xl-green">
+                                <h4 class="mt-0 mb-0"  style="color: rgb(5,95,67)">{{$total_attempts}}</h4>
+                                <p class="mb-0 "  style="color: rgb(5,95,67)">Total Test Attempts</p>
+                                <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
+                                data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
+                                data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
+                                data-fill-Color="transparent"> 8,7,7,5,5,4,8,7,5 </div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{{route('reports.payments')}}">
+                        <div class="card">
+                            <div class="body xl-pink">
+                                <h4 class="mt-0 mb-0">{{$payments->count()}}</h4>
+                                <p class="mb-0">Total Payments</p>
+                                <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
+                                data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
+                                data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="#FFFFFF"
+                                data-fill-Color="transparent"> 7,6,7,8,5,9,8,6,7 </div>
+                            </div>                        
+                        </div>
+                    </a>
                 </div>
             </div>       
         </div>
