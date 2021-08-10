@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Models\Test;
 use App\Models\User;
 use App\Models\Question;
+use App\Models\Result;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
@@ -31,11 +32,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $users=User::where('role_id',2)->count();
+       $users=User::where('role_id',2);
        $tests=Test::all();
+       $tests_attempts=Result::whereDate('created_at',today())->count();
+       $total_attempts=Result::count();
        $questions=Question::all()->count();
        $payments=Payment::orderBy('created_at','DESC')->get();
-        return view('dashboard.index',compact('users','tests','questions','payments'));
+       $today_payments=Payment::whereDate('created_at',today());
+        return view('dashboard.index',compact('total_attempts','tests_attempts','users','tests','questions','payments','today_payments'));
     }
     public function profile($id)
     {

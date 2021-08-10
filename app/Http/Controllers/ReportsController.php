@@ -151,6 +151,49 @@ class ReportsController extends Controller
     $paymentmcount=array($c_1,$c_2,$c_3,$c_4,$c_5,$c_6,$c_7,$c_8,$c_9,$c_10,$c_11,$c_12);
     return view('reports.payments',compact('paymentmcount','payments','to','from','data','total','current_year','current_month'));
     }
+    public function todaypayments()
+    {
+        $today_payments=Payment::whereDate('created_at',today())->paginate(10);
+        return view('reports.today_payments',compact('today_payments'));
+    }
+    public function todaypaymentsreport()
+    {
+        $today_payments=Payment::whereDate('created_at',today())->paginate(10);
+        $fileName = 'paymentreports.csv';
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('ID', 'MPESA Code', 'User Name', 'Phone Number', 'Date','Amount','Package');
+
+        $callback = function() use($today_payments, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($today_payments as $task) {
+                $row['ID']  = $task->id;
+                $row['MPESA Code']    = $task->reference_code;
+                $row['User Name']    = $task->user->name;
+                $row['Phone Number']  = "+".$task->paying_phone_no !=null ? $task->paying_phone_no : $task->user->phone ;
+                $row['Date']  =  date('d M Y',$task->created_at->timestamp);
+
+                $row['Amount']  = $task->amount;
+                $row['Package']  = $task->package->name;
+
+                fputcsv($file, array($row['ID'], $row['MPESA Code'], $row['User Name'], $row['Phone Number'], $row['Date'], $row['Amount'], $row['Package']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+     
+    }
     public function videos(Request $request)
     {
         $to=$request->to;

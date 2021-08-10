@@ -30,7 +30,7 @@
                             <h2><strong>Add</strong> Payment</h2>
                         </div>
                         <div class="body">
-                            @if ($errors->any())
+                            @if($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $item)
                                         {{$item}}<br>
@@ -44,69 +44,84 @@
                             @endif
                             <form action="{{route('payments.store')}}" method="POST" >
                                 @csrf
-                                <label for="">User Email</label>
                                 <div class="form-group form-float">
-                                    <input type="email" class="form-control" placeholder="User Email" name="email" >
-                                </div>
-                                <label for="">MPESA Receipt Number</label>
-                                <div class="form-group form-float">
-                                    <input type="text" class="form-control" placeholder="MPESA Receipt Number" name="reference_code" >
-                                </div>
-                                <label for="">Amount</label>
-                                <div class="form-group form-float">
-                                    <input type="number" class="form-control" placeholder="Payment Amount" name="amount" >
-                                </div>
-                                <div class="form-group form-float">
-                                    <label for="topic">Packages</label> 
-                                    <span><select class="form-control show-tick ms select2" data-placeholder="Select" name="package_id">
-                                       
-                                        @foreach ($packages as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
+                                    <label for="type">Select Payment Type</label> 
+                                    <span><select class="form-control show-tick ms select2" data-placeholder="Select" name="access" onchange="change_type()" id="access">
+                                        <option value="0">Select </option>
+                                        <option value="1">Paid</option>
+                                        <option value="2">Free Access</option>
                                     </select>
                                     </span>
                                 </div>
-                                <div id="multi" >
-                                    <div class="container">
-                                        <div class="row clearfix">
-                                            <div class="col-sm-10">
-                                                <div class="form-group">                                    
-                                                    <h1 class="card-inside-title">Topics</h1>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 ">
-                                                <div class="checkbox">
-                                                    <input id="all" type="checkbox" name="all" value="all">
-                                                    <label for="all">
-                                                            Select All
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="details">
+                                    <label for="">User Email</label>
+                                    <div class="form-group form-float ">
+                                        <input type="email" class="form-control" placeholder="User Email" name="email" >
                                     </div>
-                                    
-                                    @foreach ($topics as $item)
-                                    <div class="container">
-                                        <div class="row clearfix border rounded pt-3">
-                                            <div class="col-sm-10">
-                                                <div class="form-group">                                    
-                                                    <label for="">{{$item->title}}</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="checkbox">
-                                                    <input id="{{$item->id}}" class="check" type="checkbox" name="topics[]" value="{{$item->id}}">
-                                                    <label for="{{$item->id}}">
-                                                            Select
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                    @endforeach
                                 </div>
-                                <button class="btn btn-primary" type="submit" >Add</button>
+                                <div class="payment">
+                                    <label for="">MPESA Receipt Number</label>
+                                    <div class="form-group form-float">
+                                        <input type="text" class="form-control" placeholder="MPESA Receipt Number" name="reference_code" >
+                                    </div>
+                                    <label for="">Amount</label>
+                                    <div class="form-group form-float">
+                                        <input type="number" class="form-control" placeholder="Payment Amount" name="amount" >
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="form-group form-float">
+                                        <label for="topic">Packages</label> 
+                                        <span><select class="form-control show-tick ms select2" data-placeholder="Select" name="package_id">
+                                           
+                                            @foreach ($packages as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        </span>
+                                    </div>
+                                    <div id="multi" >
+                                        <div class="container">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">                                    
+                                                        <h1 class="card-inside-title">Topics</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 ">
+                                                    <div class="checkbox">
+                                                        <input id="all" type="checkbox" name="all" value="all">
+                                                        <label for="all">
+                                                                Select All
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        @foreach ($topics as $item)
+                                        <div class="container">
+                                            <div class="row clearfix border rounded pt-3">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">                                    
+                                                        <label for="">{{$item->title}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="checkbox">
+                                                        <input id="{{$item->id}}" class="check" type="checkbox" name="topics[]" value="{{$item->id}}">
+                                                        <label for="{{$item->id}}">
+                                                                Select
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        @endforeach
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" >Add</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -118,16 +133,38 @@
 @endsection
 @section('scripts')
     <script>
-        $(function() {
+$(function() {
 
-$('#all').click(function() {
-    if ($(this).prop('checked')) {
-        $('.check').prop('checked', true);
-    } else {
-        $('.check').prop('checked', false);
-    }
-});
+        $('#all').click(function() {
+            if ($(this).prop('checked')) {
+                $('.check').prop('checked', true);
+            } else {
+                $('.check').prop('checked', false);
+            }
+        });
 
 });
+    </script>
+    <script>
+        function change_type(){
+    
+            var type=$("#access").val();
+            if(type==2)
+            {
+                $(".details").show();
+                $(".payment").hide();
+            }
+            else if(type==1)
+            {
+                $(".details").show();
+                $(".payment").show();
+            }
+            else if(type==0){
+                $(".details").hide();
+                $(".payment").hide();
+            }
+        }
+        $(".details").hide();
+        $(".payment").hide();
     </script>
 @endsection

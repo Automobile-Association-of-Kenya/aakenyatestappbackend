@@ -113,6 +113,7 @@
                                         <th style="width:60px;">#</th>
                                         <th>MPESA Code</th>
                                         <th>User Name</th>
+                                        <th>Phone Number</th>
                                         <th>Date</th>
                                         <th>Amount</th>   
                                         <th>Package</th>                                 
@@ -124,6 +125,7 @@
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->reference_code}}</td>
                                         <td>{{$item->user->name}}</td>
+                                        <td>{{$item->paying_phone_no !=null ? $item->paying_phone_no : $item->user->phone  }}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->amount}}</td>
                                         <td>{{$item->package->name}}</td>

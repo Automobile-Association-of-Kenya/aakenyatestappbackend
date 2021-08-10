@@ -110,6 +110,7 @@ Route::post('/payments',[PaymentController::class,'store'])->name('payments.stor
 Route::get('reports/users',[ReportsController::class,'users'])->name('reports.users');
 Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.tests');
 Route::get('reports/payments',[ReportsController::class,'payments'])->name('reports.payments');
+Route::get('payments/today',[ReportsController::class,'todaypayments'])->name('today.payments');
 Route::get('reports/videos',[ReportsController::class,'videos'])->name('reports.videos');
 Route::get('reports/pdfs',[ReportsController::class,'pdfs'])->name('reports.pdfs');
 
@@ -118,6 +119,7 @@ Route::post('pdf/tests',[ReportsController::class,'pdftests'])->name('pdf.tests'
 Route::post('pdf/payments',[ReportsController::class,'pdfpayments'])->name('pdf.payments');
 Route::post('pdf/videos',[ReportsController::class,'pdfvideos'])->name('pdf.videos');
 Route::post('pdf/pdfs',[ReportsController::class,'pdfpdfs'])->name('pdf.pdfs');
+Route::post('pdf/todaypayments',[ReportsController::class,'todaypaymentsreport'])->name('pdf.todaypayments');
 
 Route::get('/notifications/index',[NotificationsController::class,'index'])->name('notifications.index');
 Route::get('/notifications/allread',[NotificationsController::class,'markallread'])->name('notifications.markallread');

@@ -41,44 +41,74 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $request->validate([
-            'email'=>'email|required|exists:users,email',
-            'reference_code'=>'string|required|unique:payments,reference_code',
-            'amount'=>'integer|required',
-            'topics'=>'required'
-        ]);
-        $package=Package::findOrFail($request->package_id);
-        if($package->amount>$request->amount)
+        if($request->access==0)
         {
-            return redirect()->back()->with('error','Payment amount is too low for the selected package');
+            return redirect()->back()->with('error','Please select format type');
         }
-        if($package->amount<$request->amount)
+        else if($request->access==1)
         {
-            return redirect()->back()->with('error','Payment amount is too high for the selected package');
-        }
-        if(count(array($request->topics))>$package->count_topics)
-        {
-            return redirect()->back()->with('error','The selected topics are too many for the package');
-        }
-        
-        $user=User::where('email',$request->email)->first();
-        if($user)
-        {
-            $payment= new Payment();
-            $payment->user_id=$user->id;
-            $payment->reference_code=$request->reference_code;
-            $payment->amount=$request->amount;
-            $payment->topics=$request->topics;
-            $payment->package_id=$request->package_id;
-            $payment->paying_phone_no=$user->phone;
-            $payment->save();
+            $request->validate([
+                'email'=>'email|required|exists:users,email',
+                'reference_code'=>'string|required|unique:payments',
+                'amount'=>'integer|required',
+                'topics'=>'required'
+            ]);
+            $package=Package::findOrFail($request->package_id);
+            if($package->amount>$request->amount)
+            {
+                return redirect()->back()->with('error','Payment amount is too low for the selected package');
+            }
+            if($package->amount<$request->amount)
+            {
+                return redirect()->back()->with('error','Payment amount is too high for the selected package');
+            }
+            if(count(array($request->topics))>$package->count_topics)
+            {
+                return redirect()->back()->with('error','The selected topics are too many for the package');
+            }
             
-                return redirect()->route('payments.index')->with('success','Payment made successfully');
-            
+            $user=User::where('email',$request->email)->first();
+            if($user)
+            {
+                $payment= new Payment();
+                $payment->user_id=$user->id;
+                $payment->reference_code=$request->reference_code;
+                $payment->amount=$request->amount;
+                $payment->topics=$request->topics;
+                $payment->package_id=$request->package_id;
+                $payment->paying_phone_no=$user->phone;
+                $payment->save();
+                
+             return redirect()->route('payments.index')->with('success','Payment made successfully');
+                
+            }
+        }
+        else if($request->access==2)
+        {
+            $request->validate([
+                'email'=>'email|required|exists:users,email',
+                'topics'=>'required'
+            ]);
+            $package=Package::findOrFail($request->package_id);
+         
+            $user=User::where('email',$request->email)->first();
+            if($user)
+            {
+                $payment= new Payment();
+                $payment->user_id=$user->id;
+                $payment->reference_code='free access';
+                $payment->amount=0;
+                $payment->topics=$request->topics;
+                $payment->package_id=$request->package_id;
+                $payment->paying_phone_no=$user->phone;
+                $payment->save();
+                
+                    return redirect()->route('payments.index')->with('success','Payment made successfully');
+                
+            }
         }
         else{
-            return redirect()->back()->with('errors','There was an error in the payment added successfully');
+            return redirect()->back()->with('error','There was an error in the adding payment. Try again');
         }
        
     }
