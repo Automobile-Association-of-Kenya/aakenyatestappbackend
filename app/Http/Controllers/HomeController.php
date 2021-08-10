@@ -32,14 +32,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $users=User::where('role_id',2);
+       $total_users=User::where('role_id',2)->count();
+       $today_users=User::whereDate('created_at',today())->count();
        $tests=Test::all();
        $tests_attempts=Result::whereDate('created_at',today())->count();
        $total_attempts=Result::count();
        $questions=Question::all()->count();
        $payments=Payment::orderBy('created_at','DESC')->get();
        $today_payments=Payment::whereDate('created_at',today());
-        return view('dashboard.index',compact('total_attempts','tests_attempts','users','tests','questions','payments','today_payments'));
+        return view('dashboard.index',compact('total_attempts','tests_attempts','total_users','today_users','tests','questions','payments','today_payments'));
     }
     public function profile($id)
     {
