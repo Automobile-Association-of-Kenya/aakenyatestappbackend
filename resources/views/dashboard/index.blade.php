@@ -57,7 +57,7 @@
                     <div class="card">
                         <div class="body xl-pink">
                             <h4 class="mt-0 mb-0">{{$tests_attempts}}</h4>
-                            <p class="mb-0">Tests Attempted Today</p>
+                            <p class="mb-0">Test Attempts Today</p>
                             <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                             data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
                             data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="#FFFFFF"
@@ -70,7 +70,7 @@
                         <div class="card">
                             <div class="body xl-green">
                                 <h4 class="mt-0 mb-0" style="color: #055f43">{{$today_payments->count()}}</h4>
-                                <p class="mb-0" style="color: #055f43">Number of Payments Today</p>
+                                <p class="mb-0" style="color: #055f43">Payments Made Today</p>
                                 <div class="sparkline" data-type="line" data-spot-Radius="1" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
                                 data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
                                 data-offset="90" data-width="100%" data-height="45px" data-line-Width="2" data-line-Color="rgb(5,95,67)"
