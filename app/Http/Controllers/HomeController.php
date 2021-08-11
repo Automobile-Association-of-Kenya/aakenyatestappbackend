@@ -38,8 +38,8 @@ class HomeController extends Controller
        $tests_attempts=Result::whereDate('created_at',today())->count();
        $total_attempts=Result::count();
        $questions=Question::all()->count();
-       $payments=Payment::orderBy('created_at','DESC')->get();
-       $today_payments=Payment::whereDate('created_at',today());
+       $payments=Payment::orderBy('created_at','DESC')->groupBy('reference_code')->get();
+       $today_payments=Payment::whereDate('created_at',today())->groupBy('reference_code')->get();
         return view('dashboard.index',compact('total_attempts','tests_attempts','total_users','today_users','tests','questions','payments','today_payments'));
     }
     public function profile($id)

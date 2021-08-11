@@ -38,21 +38,21 @@
                                     <div class="icon xl-amber m-b-15"><i class="zmdi zmdi-chart-donut"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">This Month</small>
-                                        <h4 class="mt-0">Kshs {{$current_month}}</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$current_month->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="icon xl-blue m-b-15"><i class="zmdi zmdi-chart"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">This Year</small>
-                                        <h4 class="mt-0">Kshs {{$current_year}}</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$current_year->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="icon xl-purple m-b-15"><i class="zmdi zmdi-card"></i></div>
                                     <div class="col-in">
                                         <small class="text-muted mt-0">Total Payments</small>
-                                        <h4 class="mt-0">Kshs {{$total}}</h4>                                        
+                                        <h4 class="mt-0">Kshs {{$total->sum('amount')}}</h4>                                        
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +94,19 @@
                                         </div>
                                     </form>
                                         <div class="col-lg-3 col-md-3 col-sm- ">
-                                            <form action="{{route('pdf.payments')}}" method="POST">
+                                            <button form="excel" class="btn btn-primary btn-small" type="submit"><i class="zmdi zmdi-file-plus text-white"></i></button>
+                                            <button form="pdf" class="btn btn-primary btn-small" type="submit"><i class="zmdi zmdi-print text-white"></i></button>
+                                            <form id="pdf" action="{{route('pdf.payments')}}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="to" value={{$to}}>
                                                 <input type="hidden" name="from" value={{$from}}>
-                                                <button class="btn btn-primary btn-small" type="submit"><i class="zmdi zmdi-print text-white"></i></button>
+                                                <input type="hidden" name="type" value="pdf">
+                                            </form>
+                                            <form id="excel" action="{{route('pdf.payments')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="to" value={{$to}}>
+                                                <input type="hidden" name="from" value={{$from}}>
+                                                <input type="hidden" name="type" value="excel">
                                             </form>
                                             
                                         </div>

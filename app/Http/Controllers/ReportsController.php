@@ -101,16 +101,16 @@ class ReportsController extends Controller
         $payments=null;
         if($to==null||$from==null)
         {
-            $payments=Payment::orderBy('created_at','DESC')->paginate(10);;
+            $payments=Payment::orderBy('created_at','DESC')->groupBy('reference_code')->paginate(10);;
             
         }
         else{
-            $payments=Payment::whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
+            $payments=Payment::whereBetween('created_at',[$from,$to])->groupBy('reference_code')->orderBy('created_at','DESC')->paginate(10);;
         }
        
-        $current_month= Payment::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('amount');
-       $current_year=Payment::whereYear('created_at',date('Y'))->sum('amount');
-       $total=Payment::all()->sum('amount');
+        $current_month= Payment::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->groupBy('reference_code')->get();
+       $current_year=Payment::whereYear('created_at',date('Y'))->groupBy('reference_code')->get();
+       $total=Payment::groupBy('reference_code')->get();
 
         $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
         $data = [];
@@ -133,32 +133,32 @@ class ReportsController extends Controller
        $_10=date('Y-m',strtotime($data[9]['year'].'-'.$data[9]['month']));
        $_11=date('Y-m',strtotime($data[10]['year'].'-'.$data[10]['month']));
        $_12=date('Y-m',strtotime($data[11]['year'].'-'.$data[11]['month']));
-      // dd(date('m',strtotime($data[12]['month'])));
-      $c_1=Payment::whereMonth('created_at',date('m',strtotime($data[0]['month'])))->sum('amount');
-      $c_2=Payment::whereMonth('created_at',date('m',strtotime($data[1]['month'])))->sum('amount');
-      $c_3=Payment::whereMonth('created_at',date('m',strtotime($data[2]['month'])))->sum('amount');
-      $c_4=Payment::whereMonth('created_at',date('m',strtotime($data[3]['month'])))->sum('amount');
-      $c_5=Payment::whereMonth('created_at',date('m',strtotime($data[4]['month'])))->sum('amount');
-      $c_6=Payment::whereMonth('created_at',date('m',strtotime($data[5]['month'])))->sum('amount');
-      $c_7=Payment::whereMonth('created_at',date('m',strtotime($data[6]['month'])))->sum('amount');
-      $c_8=Payment::whereMonth('created_at',date('m',strtotime($data[7]['month'])))->sum('amount');
-      $c_9=Payment::whereMonth('created_at',date('m',strtotime($data[8]['month'])))->sum('amount');
-      $c_10=Payment::whereMonth('created_at',date('m',strtotime($data[9]['month'])))->sum('amount');
-      $c_11=Payment::whereMonth('created_at',date('m',strtotime($data[10]['month'])))->sum('amount');
-      $c_12=Payment::whereMonth('created_at',date('m',strtotime($data[11]['month'])))->sum('amount');
+     
+      $c_1=Payment::whereMonth('created_at',date('m',strtotime($data[0]['month'])))->groupBy('reference_code')->get();
+      $c_2=Payment::whereMonth('created_at',date('m',strtotime($data[1]['month'])))->groupBy('reference_code')->get();
+      $c_3=Payment::whereMonth('created_at',date('m',strtotime($data[2]['month'])))->groupBy('reference_code')->get();
+      $c_4=Payment::whereMonth('created_at',date('m',strtotime($data[3]['month'])))->groupBy('reference_code')->get();
+      $c_5=Payment::whereMonth('created_at',date('m',strtotime($data[4]['month'])))->groupBy('reference_code')->get();
+      $c_6=Payment::whereMonth('created_at',date('m',strtotime($data[5]['month'])))->groupBy('reference_code')->get();
+      $c_7=Payment::whereMonth('created_at',date('m',strtotime($data[6]['month'])))->groupBy('reference_code')->get();
+      $c_8=Payment::whereMonth('created_at',date('m',strtotime($data[7]['month'])))->groupBy('reference_code')->get();
+      $c_9=Payment::whereMonth('created_at',date('m',strtotime($data[8]['month'])))->groupBy('reference_code')->get();
+      $c_10=Payment::whereMonth('created_at',date('m',strtotime($data[9]['month'])))->groupBy('reference_code')->get();
+      $c_11=Payment::whereMonth('created_at',date('m',strtotime($data[10]['month'])))->groupBy('reference_code')->get();
+      $c_12=Payment::whereMonth('created_at',date('m',strtotime($data[11]['month'])))->groupBy('reference_code')->get();
 
     $data=array($_1,$_2,$_3,$_4,$_5,$_6,$_7,$_8,$_9,$_10,$_11,$_12);
-    $paymentmcount=array($c_1,$c_2,$c_3,$c_4,$c_5,$c_6,$c_7,$c_8,$c_9,$c_10,$c_11,$c_12);
+    $paymentmcount=array($c_1->sum('amount'),$c_2->sum('amount'),$c_3->sum('amount'),$c_4->sum('amount'),$c_5->sum('amount'),$c_6->sum('amount'),$c_7->sum('amount'),$c_8->sum('amount'),$c_9->sum('amount'),$c_10->sum('amount'),$c_11->sum('amount'),$c_12->sum('amount'));
     return view('reports.payments',compact('paymentmcount','payments','to','from','data','total','current_year','current_month'));
     }
     public function todaypayments()
     {
-        $today_payments=Payment::whereDate('created_at',today())->paginate(10);
+        $today_payments=Payment::whereDate('created_at',today())->groupBy('reference_code')->paginate(10);
         return view('reports.today_payments',compact('today_payments'));
     }
     public function todaypaymentsreport()
     {
-        $today_payments=Payment::whereDate('created_at',today())->paginate(10);
+        $today_payments=Payment::whereDate('created_at',today())->groupBy('reference_code')->get();
         $fileName = 'paymentreports.csv';
 
         $headers = array(
@@ -297,17 +297,53 @@ class ReportsController extends Controller
         $payments=null;
         if($to==null||$from==null)
         {
-            $payments=Payment::all();
+            $payments=Payment::groupBy('reference_code')->get();
         }
         else{
-            $payments=Payment::whereBetween('created_at',[$from,$to])->get();
+            $payments=Payment::whereBetween('created_at',[$from,$to])->groupBy('reference_code')->get();
         }
       
-      view()->share('payments',$payments);
-      $pdf = pdfs::loadView('reports.pdf.payments', $payments);
+        if($request->type=='pdf')
+        {
+            view()->share('payments',$payments);
+            $pdf = pdfs::loadView('reports.pdf.payments', $payments);
+            return $pdf->stream();
+        }
+        else
+        {
+            $fileName = 'paymentreports.csv';
+            $headers = array(
+                "Content-type"        => "text/csv",
+                "Content-Disposition" => "attachment; filename=$fileName",
+                "Pragma"              => "no-cache",
+                "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+                "Expires"             => "0"
+            );
 
-      // download PDF file with download method
-      return $pdf->stream();
+            $columns = array('ID', 'MPESA Code', 'User Name', 'Phone Number', 'Date','Amount','Package');
+            $callback = function() use($payments, $columns) {
+                $file = fopen('php://output', 'w');
+                fputcsv($file, $columns);
+
+                foreach ($payments as $task) {
+                    $row['ID']  = $task->id;
+                    $row['MPESA Code']    = $task->reference_code;
+                    $row['User Name']    = $task->user->name;
+                    $row['Phone Number']  = "+".$task->paying_phone_no !=null ? $task->paying_phone_no : $task->user->phone ;
+                    $row['Date']  =  date('d M Y',$task->created_at->timestamp);
+
+                    $row['Amount']  = $task->amount;
+                    $row['Package']  = $task->package->name;
+
+                    fputcsv($file, array($row['ID'], $row['MPESA Code'], $row['User Name'], $row['Phone Number'], $row['Date'], $row['Amount'], $row['Package']));
+                }
+
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+            }
+     
     }
     public function pdfvideos(Request $request)
     {

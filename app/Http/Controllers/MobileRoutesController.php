@@ -307,8 +307,6 @@ class MobileRoutesController extends Controller
                 Notification::send($admins, new SystemNotification($type,$user));
                 return $this->jsonResponse(false, 'Payment saved successful', 'Payment', $payment);
             }
-
-           
         }
         else{
             return $this->jsonResponse(true, 'Payment not saved', 'Payment', null);
