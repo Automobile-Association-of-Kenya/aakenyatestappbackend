@@ -27,12 +27,26 @@ class ReportsController extends Controller
         $to=$request->to;
         $from=$request->from;
         $users=null;
+        $user=$request->user;
         if($to==null||$from==null)
         {
-            $users=User::where('role_id',2)->orderBy('created_at','DESC')->paginate(10);;
+            if($user==null)
+            {
+                $users=User::where('role_id',2)->orderBy('created_at','DESC')->paginate(10);;
+            }
+            else{
+                $users=User::where('role_id',2)->where('name','like','%'.$user.'%')->orWhere('email','like','%'.$user.'%')->orWhere('phone','like','%'.$user.'%')->orderBy('created_at','DESC')->paginate(10);;
+            }
         }
         else{
-            $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
+            if($user==null)
+            {
+                $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
+            }
+            else{
+                $users=User::where('role_id',2)->where('name','like','%'.$user.'%')->orWhere('email','like','%'.$user.'%')->orWhere('phone','like','%'.$user.'%')->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);
+            }
+           
         }
       
         $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
@@ -72,7 +86,7 @@ class ReportsController extends Controller
 
     $d=array($_1,$_2,$_3,$_4,$_5,$_6,$_7,$_8,$_9,$_10,$_11,$_12);
     $a_data=array($c_1,$c_2,$c_3,$c_4,$c_5,$c_6,$c_7,$c_8,$c_9,$c_10,$c_11,$c_12);
-        return view('reports.users',compact('users','a_data','d','to','from'));
+        return view('reports.users',compact('users','a_data','d','to','from','user'));
     }
     public function tests(Request $request)
     {

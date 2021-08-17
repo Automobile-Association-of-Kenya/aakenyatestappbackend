@@ -377,6 +377,26 @@ class MobileRoutesController extends Controller
                 }
             }
         }
+        else{
+            $array = $callback->CallbackMetadata->Item;
+           // dd($array);
+            $collection = collect($array);
+            foreach ($collection as $item) {
+                $meta = collect($item);
+                if ($meta->get("Name") == "Amount") {
+                    $mpesa_transaction->Amount = $meta->get("Value");
+                   // dd($mpesa_transaction->Amount);
+                } else if ($meta->get("Name") == "MpesaReceiptNumber") {
+                    $mpesa_transaction->MpesaReceiptNumber = $meta->get("Value");
+                } else if ($meta->get("Name") == "Balance") {
+                    $mpesa_transaction->Balance = $meta->get("Value");
+                } else if ($meta->get("Name") == "TransactionDate") {
+                    $mpesa_transaction->TransactionDate = $meta->get("Value");
+                } else if ($meta->get("Name") == "PhoneNumber") {
+                    $mpesa_transaction->PhoneNumber = $meta->get("Value");
+                }
+            }
+        }
         //
         $mpesa_transaction->save();
 

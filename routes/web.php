@@ -107,6 +107,8 @@ Route::get('/payments/index',[PaymentController::class,'index'])->name('payments
 Route::get('/payments/create',[PaymentController::class,'create'])->name('payments.create');
 Route::post('/payments',[PaymentController::class,'store'])->name('payments.store');
 
+Route::get('/transactions',[PaymentController::class,'transactions'])->name('transactions.index');
+
 Route::get('reports/users',[ReportsController::class,'users'])->name('reports.users');
 Route::get('reports/tests',[ReportsController::class,'tests'])->name('reports.tests');
 Route::get('reports/payments',[ReportsController::class,'payments'])->name('reports.payments');

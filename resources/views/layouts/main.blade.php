@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/morrisjs/morris.min.css')}}" />
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('assets/plugins/charts-c3/plugin.css')}}"/>
+    <!-- JQuery DataTable Css -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css')}}">
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}">
     <style>
@@ -57,15 +59,6 @@
     
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
-    
-    <!-- Main Search -->
-    {{-- <div id="search">
-        <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
-        <form>
-          <input type="search" value="" placeholder="Search..." />
-          <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-    </div> --}}
     
     <!-- Right Icon menu Sidebar -->
     <div class="navbar-right">
@@ -183,7 +176,8 @@
                 <li class="{{(request()->is('packages*')) ? 'active open' : ((request()->is('payments*') ? 'active open': ''))}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Payments</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('packages.index')}}">Packages</a></li>
-                        <li><a href="{{route('payments.index')}}">Payments</a></li>    
+                        <li><a href="{{route('payments.index')}}">Payments</a></li> 
+                        <li><a href="{{route('transactions.index')}}">Mpesa Transactions</a></li>       
                     </ul>
                 </li>
                 <li class="{{(request()->is('reports*')) ? 'active open' : ''}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
@@ -380,6 +374,14 @@
  <script src="{{asset('assets/js/pages/blog/blog.js')}}"></script> 
  <script src="{{asset('assets/bundles/morrisscripts.bundle.js')}}"></script> <!-- Morris Plugin Js -->
  
+ <!-- Jquery DataTable Plugin Js --> 
+ <script src="{{asset('assets/bundles/datatablescripts.bundle.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js')}}"></script>
+ <script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js')}}"></script>
 
  @yield('scripts')
 </body>

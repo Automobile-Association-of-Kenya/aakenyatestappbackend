@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MpesaTransaction;
 use App\Models\Package;
 use App\Models\Payment;
 use App\Models\Topic;
@@ -113,6 +114,22 @@ class PaymentController extends Controller
        
     }
 
+    public function transactions(Request $request)
+    {
+        $search=$request->search;
+        if($search==null||$search==0)
+        {
+            $transactions= MpesaTransaction::orderBy('created_at','DESC')->paginate(10);
+        }
+        else if($search==1){
+            $transactions= MpesaTransaction::where('ResultCode',0.00)->orderBy('created_at','DESC')->paginate(10);
+        }
+        else{
+            $transactions= MpesaTransaction::where('ResultCode','!=',0.00)->orderBy('created_at','DESC')->paginate(10);
+        }
+        return view('payments.transactions',compact('transactions','search'));
+    }
+
     /**
      * Display the specified resource.
      *
@@ -157,4 +174,5 @@ class PaymentController extends Controller
     {
         //
     }
+
 }

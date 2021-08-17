@@ -88,6 +88,32 @@
                         </div>
                         <br>
                         <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-float">
+                                        <label for="type"></label> 
+                                       
+                                    </div>
+                                       
+                                  </div>
+                                <div class="col-md-6">
+                                  <div class="form-group form-float">
+                                      <form action="" id="form-search" method="get">
+                                          <label for="type"> </label> 
+                                          <span> <div class="form-group form-float ">
+                                            <input id="myInput" class="form-control mt-2" type="text" name="user" value="{{$user}}" placeholder="Enter name,email, or phone to search user">
+                                        </div>
+                                        </span>
+                                      </form>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <label for="type" class=""> </label> 
+                                  <button form="form-search" class="btn btn-primary  btn-lg" type="submit" >Search</button>
+                                </div>
+                               
+                                 
+                              </div>
                             @if(session('success'))
                                 <div class="alert alert-success">
                                     {{session('success')}}
