@@ -331,6 +331,7 @@ class MobileRoutesController extends Controller
     }
     public function pdfreads(Request $request)
     {
+       
         $read=new PdfRead;
         $read->user_id=$request->user_id;
         $read->pdf_id=$request->pdf_id;
