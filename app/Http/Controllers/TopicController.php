@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class TopicController extends Controller
 {
@@ -87,6 +89,8 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
+        $url=URL::previous();
+        Session::put('url',$url);
         $topic=Topic::findOrFail($id);
         return view('topics.edit',compact('topic'));
     }
@@ -120,8 +124,9 @@ class TopicController extends Controller
             $topic->free=True;
         }
         $topic->save();
-
-        return redirect()->route('topics.index')->with('success','Topic updated successfully');
+        $url= Session::get('url');
+     
+        return redirect($url)->with('success','Topic updated successfully');
     }
 
     /**

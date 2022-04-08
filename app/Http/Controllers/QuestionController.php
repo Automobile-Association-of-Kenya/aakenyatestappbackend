@@ -6,6 +6,8 @@ use App\Models\Test;
 use App\Models\Topic;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class QuestionController extends Controller
@@ -201,7 +203,8 @@ class QuestionController extends Controller
     {
         $question=Question::findOrFail($id);
         $topics=Topic::all();
-
+        $url=URL::previous();
+        Session::put('url',$url);
         return view('questions.edit',compact('question','topics'));
     }
 
@@ -365,7 +368,8 @@ class QuestionController extends Controller
             $question->photo=$imageName;
         }
         $question->save();
-        return redirect()->route('tests.edit',$question->test_id)->with('success','Question updated successfully');
+        $url= Session::get('url');
+        return redirect($url)->with('success','Question updated successfully');
     }
 
     /**

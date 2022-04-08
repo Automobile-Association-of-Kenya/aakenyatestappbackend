@@ -271,7 +271,7 @@ class ReportsController extends Controller
         $users=null;
         if($to==null||$from==null)
         {
-            $users=User::where('role_id',2)->get();
+            $users=User::where('role_id',2)->whereDate('created_at',now()->day)->get();
         }
         else{
             $users=User::where('role_id',2)->whereBetween('created_at',[$from,$to])->get();
@@ -291,7 +291,7 @@ class ReportsController extends Controller
         $all_tests=null;
         if($to==null||$from==null)
         {
-            $all_tests=Test::all();
+            $all_tests=Test::whereDate('created_at',now()->day)->get();
             
         }
         else{
@@ -311,7 +311,7 @@ class ReportsController extends Controller
         $payments=null;
         if($to==null||$from==null)
         {
-            $payments=Payment::groupBy('reference_code')->get();
+            $payments=Payment::whereDate('created_at',now()->day)->groupBy('reference_code')->get();
         }
         else{
             $payments=Payment::whereBetween('created_at',[$from,$to])->groupBy('reference_code')->get();

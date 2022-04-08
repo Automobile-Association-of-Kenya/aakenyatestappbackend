@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TestController extends Controller
 {
@@ -81,6 +83,8 @@ class TestController extends Controller
     {
         $test=Test::findOrFail($id);
         $topics=Topic::all();
+        $url=URL::previous();
+        Session::put('url',$url);
         $questions=$test->questions()->paginate(3);
 
         return view('tests.edit',compact('test','topics','questions'));
@@ -105,8 +109,8 @@ class TestController extends Controller
         $test->title=$request->title;
         $test->topic_id=$request->topic_id;
         $test->save();
-        
-        return redirect()->route('tests.index')->with('success','Test updated successfully');
+        $url= Session::get('url');
+        return redirect($url)->with('success','Test updated successfully');
     }
 
     /**

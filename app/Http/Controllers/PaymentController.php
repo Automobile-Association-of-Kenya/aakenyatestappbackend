@@ -63,10 +63,10 @@ class PaymentController extends Controller
             {
                 return redirect()->back()->with('error','Payment amount is too high for the selected package');
             }
-            if(count(array($request->topics))>$package->count_topics)
-            {
-                return redirect()->back()->with('error','The selected topics are too many for the package');
-            }
+            // if(count(array($request->topics))>$package->count_topics)
+            // {
+            //     return redirect()->back()->with('error','The selected topics are too many for the package');
+            // }
             
             $user=User::where('email',$request->email)->first();
             if($user)
