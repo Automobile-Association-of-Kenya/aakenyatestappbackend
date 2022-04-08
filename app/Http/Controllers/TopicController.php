@@ -21,7 +21,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics=Topic::paginate(5);
+        $topics=Topic::orderBy('order','ASC')->paginate(5);
+        //dd($topics);
         return view('topics.index',compact('topics'));
     }
 
@@ -46,6 +47,7 @@ class TopicController extends Controller
         $request->validate([
             'title'=>'required|string|unique:topics',
             'description'=>'required|string',
+            'order'=>'required',
             
         ]);
     
@@ -66,6 +68,7 @@ class TopicController extends Controller
         {
             $topic->free=False;
         }
+        $topic->order=$request->order;
         $topic->save();
         return redirect()->route('topics.index')->with('success','Topic added successfully');
     }
@@ -106,7 +109,8 @@ class TopicController extends Controller
     {
         $request->validate([
             'title'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'order'=>'required'
         ]);
         $topic=Topic::findOrFail($id);
         $topic->title=$request->title;
@@ -123,6 +127,7 @@ class TopicController extends Controller
         {
             $topic->free=True;
         }
+        $topic->order=$request->order;
         $topic->save();
         $url= Session::get('url');
      

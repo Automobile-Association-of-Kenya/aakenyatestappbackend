@@ -47,6 +47,9 @@
                                     <input type="text" class="form-control" placeholder="Description" name="description" value="{{$topic->description}}" >
                                 </div>
                                 <div class="form-group form-float">
+                                    <input type="number" class="form-control" placeholder="Curriculum Order" name="order" value="{{$topic->order}}" >
+                                </div>
+                                <div class="form-group form-float">
                                     <select class="form-control show-tick ms select2" name="free" >
                                         <option value="0">Select</option>
                                         <option value="1" {{$topic->free==True ? 'selected': ''}}>Free</option>
