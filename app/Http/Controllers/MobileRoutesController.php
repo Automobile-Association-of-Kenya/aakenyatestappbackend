@@ -60,7 +60,7 @@ class MobileRoutesController extends Controller
            
             return $this->jsonResponse(false, 'Successfully logged in', 'user', $user);
         }
-        return $this->jsonResponse(true, 'return response()->json(["status"=>200,"message"=>"Login successful"]);', 
+        return $this->jsonResponse(true, 'Either email or password is incorrect. Please try again.', 
             'user', null);
     }
 
