@@ -183,7 +183,7 @@ class MobileRoutesController extends Controller
 
     public function topics()
     {
-        $topics= Topic::all();
+        $topics= Topic::orderBy('order','ASC')->get();
         return $this->jsonResponse(false, 'All topics', 'Topics', $topics);
     }
     public function tests()

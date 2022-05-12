@@ -88,6 +88,74 @@ class ReportsController extends Controller
     $a_data=array($c_1,$c_2,$c_3,$c_4,$c_5,$c_6,$c_7,$c_8,$c_9,$c_10,$c_11,$c_12);
         return view('reports.users',compact('users','a_data','d','to','from','user'));
     }
+    public function unpaidUsers(Request $request)
+    {
+        $payments = Payment::pluck('user_id');
+
+        $to=$request->to;
+        $from=$request->from;
+        $users=null;
+        $user=$request->user;
+        if($to==null||$from==null)
+        {
+            if($user==null)
+            {
+                $users=User::where('role_id',2)->whereNotIn('id',$payments)->orderBy('created_at','DESC')->paginate(10);;
+            }
+            else{
+                $users=User::where('role_id',2)->whereNotIn('id',$payments)->where('name','like','%'.$user.'%')->orWhere('email','like','%'.$user.'%')->orWhere('phone','like','%'.$user.'%')->orderBy('created_at','DESC')->paginate(10);;
+            }
+        }
+        else{
+            if($user==null)
+            {
+                $users=User::where('role_id',2)->whereNotIn('id',$payments)->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);;
+            }
+            else{
+                $users=User::where('role_id',2)->whereNotIn('id',$payments)->where('name','like','%'.$user.'%')->orWhere('email','like','%'.$user.'%')->orWhere('phone','like','%'.$user.'%')->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate(10);
+            }
+           
+        }
+      
+        $period = now()->startOfMonth()->subMonths(11)->monthsUntil(now());
+        $data = [];
+        foreach ($period as $date)
+        {
+           $data[] = [
+               'month' => $date->shortMonthName,
+               'year' => $date->year,
+           ];
+        }
+       $_1=strval($data[0]['year'].'-'.$data[0]['month']);
+       $_2=strval($data[1]['year'].'-'.$data[1]['month']);
+       $_3=strval($data[2]['year'].'-'.$data[2]['month']);
+       $_4=strval($data[3]['year'].'-'.$data[3]['month']);
+       $_5=strval($data[4]['year'].'-'.$data[4]['month']);
+       $_6=strval($data[5]['year'].'-'.$data[5]['month']);
+       $_7=strval($data[6]['year'].'-'.$data[6]['month']);
+       $_8=strval($data[7]['year'].'-'.$data[7]['month']);
+       $_9=strval($data[8]['year'].'-'.$data[8]['month']);
+       $_10=strval($data[9]['year'].'-'.$data[9]['month']);
+       $_11=strval($data[10]['year'].'-'.$data[10]['month']);
+       $_12=strval($data[11]['year'].'-'.$data[11]['month']);
+      // dd(date('m',strtotime($data[12]['month'])));
+      $c_1=User::whereMonth('created_at',date('m',strtotime($data[0]['month'])))->count();
+      $c_2=User::whereMonth('created_at',date('m',strtotime($data[1]['month'])))->count();
+      $c_3=User::whereMonth('created_at',date('m',strtotime($data[2]['month'])))->count();
+      $c_4=User::whereMonth('created_at',date('m',strtotime($data[3]['month'])))->count();
+      $c_5=User::whereMonth('created_at',date('m',strtotime($data[4]['month'])))->count();
+      $c_6=User::whereMonth('created_at',date('m',strtotime($data[5]['month'])))->count();
+      $c_7=User::whereMonth('created_at',date('m',strtotime($data[6]['month'])))->count();
+      $c_8=User::whereMonth('created_at',date('m',strtotime($data[7]['month'])))->count();
+      $c_9=User::whereMonth('created_at',date('m',strtotime($data[8]['month'])))->count();
+      $c_10=User::whereMonth('created_at',date('m',strtotime($data[9]['month'])))->count();
+      $c_11=User::whereMonth('created_at',date('m',strtotime($data[10]['month'])))->count();
+      $c_12=User::whereMonth('created_at',date('m',strtotime($data[11]['month'])))->count();
+
+    $d=array($_1,$_2,$_3,$_4,$_5,$_6,$_7,$_8,$_9,$_10,$_11,$_12);
+    $a_data=array($c_1,$c_2,$c_3,$c_4,$c_5,$c_6,$c_7,$c_8,$c_9,$c_10,$c_11,$c_12);
+        return view('reports.unpaid_users',compact('users','a_data','d','to','from','user'));
+    }
     public function tests(Request $request)
     {
         

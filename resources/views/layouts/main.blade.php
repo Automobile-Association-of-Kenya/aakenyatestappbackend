@@ -151,7 +151,7 @@
                            @auth
                            <h4>{{Auth::User()->name}}</h4>
                            @endauth
-                            <small>{{Auth::user()->role->name}}</small>                        
+                            <small>{{Auth::user()->role ? Auth::user()->role->name:'ADMIN'}}</small>                        
                         </div>
                     </div>
                 </li>
@@ -183,6 +183,7 @@
                 <li class="{{(request()->is('reports*')) ? 'active open' : ''}}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>User Reports</span></a>
                     <ul class="ml-menu">
                         <li><a href="{{route('reports.users')}}">Registered Users</a></li>
+                        <li><a href="{{route('reports.unpaid_users')}}">Unpaid Users</a></li>
                         <li><a href="{{route('reports.tests')}}">Tests </a></li>
                         <li><a href="{{route('reports.payments')}}">Payments</a></li>
                         <li><a href="{{route('reports.videos')}}">Videos Watched </a></li>

@@ -115,6 +115,7 @@ Route::get('reports/payments',[ReportsController::class,'payments'])->name('repo
 Route::get('payments/today',[ReportsController::class,'todaypayments'])->name('today.payments');
 Route::get('reports/videos',[ReportsController::class,'videos'])->name('reports.videos');
 Route::get('reports/pdfs',[ReportsController::class,'pdfs'])->name('reports.pdfs');
+Route::get('reports/unpaid-users',[ReportsController::class,'unpaidUsers'])->name('reports.unpaid_users');
 
 Route::post('pdf/users',[ReportsController::class,'pdfusers'])->name('pdf.users');
 Route::post('pdf/tests',[ReportsController::class,'pdftests'])->name('pdf.tests');
