@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TestsResource;
 use Carbon\Carbon;
 use App\Models\Pdf;
 use App\Models\Test;
@@ -188,12 +189,15 @@ class MobileRoutesController extends Controller
     }
     public function tests()
     {
-        $tests= Test::all();
-        return $this->jsonResponse(false, 'All tests', 'Tests', $tests);
+        $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
+        $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
+     
+        return response()->json(["error" =>false, "message" => 'All Tests', 'Tests' => TestsResource::collection($tests)]);
     }
     public function testspertopic()
-    {
-        $tests=Test::all()->groupBy('topic_id');
+    {  
+        $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
+        $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
         return $this->jsonResponse(false, 'Tests in each topic', 'topics', $tests);
     }
     public function testsinatopic($id)
