@@ -182,6 +182,24 @@ class MobileRoutesController extends Controller
         return $this->jsonResponse(false, 'User details updated successfully', 'User', $user);
     }
 
+    // public function topics()
+    // {
+    //     $topics= Topic::orderBy('order','ASC')->get();
+    //     return $this->jsonResponse(false, 'All topics', 'Topics', $topics);
+    // }
+    // public function tests()
+    // {
+    //     $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
+    //     $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
+     
+    //     return response()->json(["error" =>false, "message" => 'All Tests', 'Tests' => TestsResource::collection($tests)]);
+    // }
+    // public function testspertopic()
+    // {  
+    //     $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
+    //     $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
+    //     return $this->jsonResponse(false, 'Tests in each topic', 'topics', $tests);
+    // }
     public function topics()
     {
         $topics= Topic::orderBy('order','ASC')->get();
@@ -189,15 +207,12 @@ class MobileRoutesController extends Controller
     }
     public function tests()
     {
-        $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
-        $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
-     
-        return response()->json(["error" =>false, "message" => 'All Tests', 'Tests' => TestsResource::collection($tests)]);
+        $tests= Test::all();
+        return $this->jsonResponse(false, 'All tests', 'Tests', $tests);
     }
     public function testspertopic()
-    {  
-        $tests= Topic::orderBy('order')->with('tests')->withOut('questions','videos','pdfs')->get();
-        $tests = $tests->makeHidden(['id','title','description','created_at','updated_at','user','deleted_at','free','order']);
+    {
+        $tests=Test::all()->groupBy('topic_id');
         return $this->jsonResponse(false, 'Tests in each topic', 'topics', $tests);
     }
     public function testsinatopic($id)
