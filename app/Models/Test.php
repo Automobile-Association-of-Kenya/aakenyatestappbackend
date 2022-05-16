@@ -9,7 +9,9 @@ class Test extends Model
 {
     use HasFactory;
     protected $with = ['questions'];
-    
+    protected $fillable=[
+        'order'
+    ];
 
     public function questions()
     {

@@ -207,12 +207,12 @@ class MobileRoutesController extends Controller
     }
     public function tests()
     {
-        $tests= Test::all();
+        $tests= Test::orderBy('order','ASC')->get();
         return $this->jsonResponse(false, 'All tests', 'Tests', $tests);
     }
     public function testspertopic()
     {
-        $tests=Test::all()->groupBy('topic_id');
+        $tests=Test::all()->groupBy('topic_id')->orderBy('order','ASC');
         return $this->jsonResponse(false, 'Tests in each topic', 'topics', $tests);
     }
     public function testsinatopic($id)

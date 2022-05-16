@@ -11,6 +11,9 @@ class Topic extends Model
     use HasFactory;
     use SoftDeletes;
     protected $with = ['tests','questions','videos','pdfs'];
+    protected $fillable=[
+        'order'
+    ];
     public function questions()
     {
         
