@@ -112,7 +112,7 @@ class TestController extends Controller
         $test->title=$request->title;
         $test->topic_id=$request->topic_id;
         $topic = Topic::findOrFail($request->topic_id);
-        $test->order = $topic->order;
+        $test->order = $request->order;
         $test->save();
         $url= Session::get('url');
         return redirect($url)->with('success','Test updated successfully');

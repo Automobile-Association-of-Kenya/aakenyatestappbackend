@@ -49,6 +49,10 @@
                                 <div class="form-group form-float">
                                     <input type="text" class="form-control" placeholder="Title" name="title" value="{{$test->title}}" >
                                 </div>
+                                <label for="">Order</label>
+                                <div class="form-group form-float">
+                                    <input type="text" class="form-control" placeholder="Title" name="order" value="{{$test->order}}" >
+                                </div>
                                 <div class="form-group form-float">
                                     <label for="topic">Topic</label> 
                                     <span><select class="form-control show-tick ms select2" data-placeholder="Select" name="topic_id">

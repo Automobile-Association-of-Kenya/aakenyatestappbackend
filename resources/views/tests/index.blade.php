@@ -33,6 +33,7 @@
                                         
                                         <th data-breakpoints="sm xs">Code</th>
                                         <th data-breakpoints="sm xs">Title</th>
+                                        <th data-breakpoints="sm xs">Order</th>
                                         <th data-breakpoints="xs">No of Questions</th>
                                         <th data-breakpoints="xs">Added By:</th>
                                         <th data-breakpoints="sm xs md">Action</th>
@@ -54,6 +55,7 @@
                                         <input type="hidden" class="delete_value_id" value="{{$item->id}}">
                                         <td><h5>{{$item->code}}</h5></td>
                                         <td><h5>{{$item->title}}</h5></td>
+                                        <td><h5>{{$item->order}}</h5></td>
                                         <td><span class="text-muted">{{$item->questions->count()}}</span></td>
                                         <td>{{$item->user}}</td>
                                         <td>
