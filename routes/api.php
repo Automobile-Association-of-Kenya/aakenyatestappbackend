@@ -37,6 +37,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 //Update profile
     Route::post('/profile/{id}',[MobileRoutesController::class,'updateprofile']);
 
+// Delete User Account....modified by kevin
+Route::delete('/profiledelete/{id}',[MobileRoutesController::class,'destroy']);
+
+
     //Topics 
     Route::post('/topics',[MobileRoutesController::class,'topics']);//Get all tests
 

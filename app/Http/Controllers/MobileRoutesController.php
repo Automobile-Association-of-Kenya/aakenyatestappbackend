@@ -431,4 +431,12 @@ class MobileRoutesController extends Controller
 
         return $this->jsonResponse(false, 'Logged Out', 'User', null);
     }
+    
+    // This is Modified function to delete mobile user account
+    public function destroy($id)
+    {
+        $user=User::findOrFail($id);
+        $user->delete();
+        return $this->jsonResponse(false, 'Account Deleted Successfully', null, null);
+    }
 }
