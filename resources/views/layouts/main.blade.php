@@ -50,12 +50,12 @@
     <body class="theme-blush">
     
     <!-- Page Loader -->
-     <div class="page-loader-wrapper">
+     {{-- <div class="page-loader-wrapper">
         <div class="loader">
            
         </div>
         Please wait...
-    </div> 
+    </div>  --}}
     
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
